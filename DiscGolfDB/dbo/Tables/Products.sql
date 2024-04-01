@@ -1,5 +1,5 @@
 ﻿CREATE TABLE [dbo].[Products] (
-    [ProductID]     INT             NOT NULL,
+    [ProductID]     INT             IDENTITY (1, 1) NOT NULL,
     [VideoID]       INT             NULL,
     [Name]          VARCHAR (50)    NOT NULL,
     [Specification] VARCHAR (50)    NOT NULL,
@@ -8,4 +8,6 @@
     CONSTRAINT [PK_Products] PRIMARY KEY CLUSTERED ([ProductID] ASC),
     CONSTRAINT [FK_Products_Videos] FOREIGN KEY ([VideoID]) REFERENCES [dbo].[Videos] ([VideoID])
 );
+
+
 
