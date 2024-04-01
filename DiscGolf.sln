@@ -3,9 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.9.34701.34
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DiscGolfWeb", "DiscGolfWeb\DiscGolfWeb.csproj", "{6EEAE246-9612-4A39-A57C-25A15083A759}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DiscGolfWeb", "DiscGolfWeb\DiscGolfWeb.csproj", "{6EEAE246-9612-4A39-A57C-25A15083A759}"
 EndProject
 Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "DiscGolfDB", "DiscGolfDB\DiscGolfDB.sqlproj", "{0878007B-1E53-45C6-8D1A-DBEB05D6DAB4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DiscGolfBusiness", "DiscGolfBusiness\DiscGolfBusiness.csproj", "{8B2C32CD-6834-4A28-8367-3E4A9A8CCFE4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,6 +25,10 @@ Global
 		{0878007B-1E53-45C6-8D1A-DBEB05D6DAB4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0878007B-1E53-45C6-8D1A-DBEB05D6DAB4}.Release|Any CPU.Build.0 = Release|Any CPU
 		{0878007B-1E53-45C6-8D1A-DBEB05D6DAB4}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{8B2C32CD-6834-4A28-8367-3E4A9A8CCFE4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8B2C32CD-6834-4A28-8367-3E4A9A8CCFE4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8B2C32CD-6834-4A28-8367-3E4A9A8CCFE4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8B2C32CD-6834-4A28-8367-3E4A9A8CCFE4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

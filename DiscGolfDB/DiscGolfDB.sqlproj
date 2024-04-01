@@ -68,4 +68,7 @@
     <Build Include="dbo\Tables\Collection.sql" />
     <Build Include="dbo\Tables\Orders.sql" />
   </ItemGroup>
+  <ItemGroup>
+    <PostDeploy Include="PopulateDB.sql" />
+  </ItemGroup>
 </Project>
