@@ -16,6 +16,7 @@ namespace DiscGolfWeb.Model
         [Required(ErrorMessage = "You must enter a password")]
         public string Password { get; set; }
 
+        [Display(Name = "Phone (Optional)")]
          public string Phone { get; set; }
 
     }
