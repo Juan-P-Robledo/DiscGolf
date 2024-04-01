@@ -31,7 +31,7 @@ namespace DiscGolfWeb.Pages.Account
                         string passwordHash = reader.GetString(0);
                         if (SecurityHelper.VerifyPassword(LoginUser.Password, passwordHash))
                         {
-                            return RedirectToPage("Register");
+                            return RedirectToPage("/Index");
                         }
                         else
                         {
