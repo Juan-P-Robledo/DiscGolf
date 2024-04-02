@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DiscGolfWeb", "DiscGolfWeb\
 EndProject
 Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "DiscGolfDB", "DiscGolfDB\DiscGolfDB.sqlproj", "{0878007B-1E53-45C6-8D1A-DBEB05D6DAB4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DiscGolfBusiness", "DiscGolfBusiness\DiscGolfBusiness.csproj", "{8B2C32CD-6834-4A28-8367-3E4A9A8CCFE4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DiscGolfBusiness", "DiscGolfBusiness\DiscGolfBusiness.csproj", "{8B2C32CD-6834-4A28-8367-3E4A9A8CCFE4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
