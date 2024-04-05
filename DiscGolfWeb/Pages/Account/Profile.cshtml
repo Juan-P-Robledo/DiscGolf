@@ -2,3 +2,98 @@
 @model DiscGolfWeb.Pages.Account.ProfileModel
 @{
 }
+
+<form>
+    <div class="row m-2">
+        <div class="col-2">
+            <label>First Name: </label>
+        </div>
+        <div class="col-10">
+            <label>@Model.profile.FirstName</label>
+        </div>
+    </div>
+    <div class="row m-2">
+        <div class="col-2">
+            <label>Last Name: </label>
+        </div>
+        <div class="col-10">
+            <label>@Model.profile.LastName</label>
+        </div>
+    </div>
+    <div class="row m-2">
+        <div class="col-2">
+            <label>Email: </label>
+        </div>
+        <div class="col-10">
+            <label>@Model.profile.Email</label>
+        </div>
+    </div>
+    <div class="row m-2">
+        <div class="col-2">
+            <label>Phone: </label>
+        </div>
+        <div class="col-10">
+            <label>@Model.profile.Phone</label>
+        </div>
+    </div>
+</form>
+
+
+
+<style>
+
+
+    body {
+        background-image: url('https://i.pinimg.com/736x/91/b7/f5/91b7f5e0c42251f849fe21b0332877a8.jpg'); /* Specify 	the URL of your image */
+        background-size: cover; /* Cover the entire background */
+        background-repeat: no-repeat; /* Don't repeat the background image */
+        background-position: center;
+        color: white;
+        font-family: Arial, sans-serif;
+        margin: 0; /* Change back to 20px if it doesn't work*/
+
+
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        flex-direction: column;
+        background-color: rgba(0, 0, 0, 0.2);
+    }
+
+
+    form {
+        background-color: rgba(194,219,189,255);
+        border: 5px solid rgba(97,130,109,255);
+        border-radius: 10px;
+        color: rgba(29,50,53,255);
+        white-space: nowrap;
+        max-width: 350px;
+        margin: 0 auto;
+    }
+
+    .col-10 {
+        text-align: center;
+    }
+
+    label {
+        display: block;
+        margin-bottom: 8px;
+    }
+
+    input {
+        width: 100%;
+        padding: 8px;
+        margin-bottom: 16px;
+        box-sizing: border-box;
+    }
+
+    h1 {
+        text-align: center;
+    }
+
+    .image-container {
+        text-align: center; /* Center align its contents horizontally */
+    }
+</style>

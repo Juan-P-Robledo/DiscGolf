@@ -21,11 +21,29 @@ namespace DiscGolfWeb.Pages.Account
         {
             if (ModelState.IsValid)
             {
-                //1. Create a database connection string
-               // string connString = "Server=(localdb)\\MSSQLLocalDB;Database=DiscGolfDatabase;Trusted_Connection=true;";
-                SqlConnection conn = new SqlConnection(SecurityHelper.GetDBConnectionString());
-                //2. Create a SQL command
-                string cmdText = "INSERT INTO Users(Firstname, LastName, Email, Password, Phone)" +
+                if (!EmailExists(NewPerson.Email))
+                {
+                    RegisterUser();
+                    return RedirectToPage("Login");
+                }
+                else
+                {
+                    ModelState.AddModelError("RegisterError", "The email already exists. Try a different one.");
+                    return Page();
+                }
+            }
+            else
+            {
+                return Page();
+            }
+            
+        }
+
+        private void RegisterUser()
+        {
+            using (SqlConnection conn = new SqlConnection(SecurityHelper.GetDBConnectionString()))
+            {
+                String cmdText = "INSERT INTO Users(Firstname, LastName, Email, Password, Phone)" +
                     "VALUES(@firstName, @lastName, @email, @password, @phone)";
                 SqlCommand cmd = new SqlCommand(cmdText, conn);
                 cmd.Parameters.AddWithValue("@firstName", NewPerson.FirstName);
@@ -33,27 +51,30 @@ namespace DiscGolfWeb.Pages.Account
                 cmd.Parameters.AddWithValue("@email", NewPerson.Email);
                 cmd.Parameters.AddWithValue("@password", SecurityHelper.GeneratedPasswordHash(NewPerson.Password));
                 cmd.Parameters.AddWithValue("@phone", NewPerson.Phone);
-
-                // cmd.Parameters.AddWithValue("@lastLoginTime", DateTime.Now.ToString());
-                //3. Open the database
                 conn.Open();
-                //4. Execute the SQL command
                 cmd.ExecuteNonQuery();
-                //5. Close the Database
-                conn.Close();
-                /*
-                string firstName = NewPerson.FirstName;
-                string lastName = NewPerson.LastName;
-                string email = NewPerson.Email;
-                string password = NewPerson.Password;
-                */
-                return RedirectToPage("Login");
             }
-            else
+        }
+
+        private bool EmailExists(string email)
+        {
+            using (SqlConnection conn = new SqlConnection(SecurityHelper.GetDBConnectionString()))
             {
-                return Page();
+                String cmdText = "SELECT * FROM Users WHERE Email=@email";
+                SqlCommand cmd = new SqlCommand(cmdText, conn);
+                cmd.Parameters.AddWithValue("@email", email);
+                conn.Open();
+                SqlDataReader reader = cmd.ExecuteReader();
+
+                if (reader.HasRows)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
             }
-            
         }
     }
 }
