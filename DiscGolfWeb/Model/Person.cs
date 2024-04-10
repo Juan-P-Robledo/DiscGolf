@@ -17,7 +17,7 @@ namespace DiscGolfWeb.Model
         public string Password { get; set; }
 
         [Display(Name = "Phone (Optional)")]
-         public string Phone { get; set; }
+         public string? Phone { get; set; }
 
     }
 }
