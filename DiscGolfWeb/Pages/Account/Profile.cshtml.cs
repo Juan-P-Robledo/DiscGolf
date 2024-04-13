@@ -1,21 +1,33 @@
+
+using DiscGolfWeb.Model;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using DiscGolfWeb.Model;
+
 
 namespace DiscGolfWeb.Pages.Account
 {
     public class ProfileModel : PageModel
     {
-        
-        public Profile profile {  get; set; }
+
+
+        [BindProperty]
+        public Profile ProfileUser { get; set; } = new Profile();
         public void OnGet()
         {
-        profile = new Profile();
-            profile.FirstName = "Hi";
-            profile.LastName = "Hello";
-            profile.Email = "hi@gmail.com";
-            profile.Phone = "1234567890";
+            PopulateProfile();
+            
+        }
+
+        private void PopulateProfile()
+        {
+            ProfileUser = new Profile();
+            ProfileUser.FirstName = "Juan";
+            ProfileUser.LastName = "Robledo";
+            ProfileUser.Email = "Robledojp@jacks.sfasu.edu";
+            ProfileUser.Password = "Poop";
+            ProfileUser.Phone = "None";
             //profile.LastLoginTime = DateTime.now;
+
         }
     }
 }

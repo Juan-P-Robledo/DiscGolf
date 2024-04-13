@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Data.SqlClient;
 using DiscGolfBusiness;
 using DiscGolfWeb.Model;
+using System.ComponentModel.DataAnnotations;
+
 
 namespace DiscGolfWeb.Pages.Account
 {
@@ -14,32 +16,88 @@ namespace DiscGolfWeb.Pages.Account
         {
 
         }
-        public ActionResult OnPost()
+        public IActionResult OnPost()
         { 
             if (ModelState.IsValid)
             {
+
+                
+
                 if(ValidateCredentials())
                 {
                     return RedirectToPage("Profile");
                 }
                 else
                 {
-                    ModelState.AddModelError("LoginError", "Invalid credentials. Try again.");
+
+                    ModelState.AddModelError("LoginError", "Invalid credentials. Try Again");
+
                     return Page();
                 }
             }
             else
             {
+
+                
+
                 return Page();
             }
         }
+
+
+        private IActionResult ProcessLogin()
+        {
+        
+                using (SqlConnection conn = new SqlConnection(SecurityHelper.GetDBConnectionString()))
+                {
+
+                    string cmdText = "SELECT Password FROM Users WHERE Email=@email";
+                    SqlCommand cmd = new SqlCommand(cmdText, conn);
+                    cmd.Parameters.AddWithValue("@email", LoginUser.Email);
+                    conn.Open();
+                    SqlDataReader reader = cmd.ExecuteReader();
+                    if (reader.HasRows)
+                    {
+                        reader.Read();
+                        if (!reader.IsDBNull(0))
+                        {
+                            string passwordHash = reader.GetString(0);
+                            if (SecurityHelper.VerifyPassword(LoginUser.Password, passwordHash))
+                            {
+                                return RedirectToPage("/Index");
+                            }
+                            else
+                            {
+                                ModelState.AddModelError("LoginError", "Invalid credentials. Try Again");
+                                return Page();
+                            }
+                        }
+                        else
+                        {
+                            ModelState.AddModelError("LoginError", "Invalid credentials. Try Again");
+                            return Page();
+                        }
+
+                    }
+                    else
+                    {
+                        ModelState.AddModelError("LoginError", "Invalid credentials. Try Again");
+                        return Page();
+                    }
+                }
+            
+        }
+
 
         private bool ValidateCredentials()
         {
             using (SqlConnection conn = new SqlConnection(SecurityHelper.GetDBConnectionString()))
             {
-                String cmdText = "SELECT Password, UserId FROM Users WHERE Email=@email";
-                SqlCommand cmd = new SqlCommand( cmdText, conn);
+
+
+                string cmdText = "SELECT Password FROM Users WHERE Email=@email";
+                SqlCommand cmd = new SqlCommand(cmdText, conn);
+
                 cmd.Parameters.AddWithValue("@email", LoginUser.Email);
                 conn.Open();
                 SqlDataReader reader = cmd.ExecuteReader();
@@ -47,7 +105,11 @@ namespace DiscGolfWeb.Pages.Account
                 if (reader.HasRows)
                 {
                     reader.Read();
-                    if (!reader.IsDBNull(0))
+                    if (reader.IsDBNull(0))
+                    {
+                        return false;
+                    }
+                    else
                     {
                         string passwordHash = reader.GetString(0);
                         if (SecurityHelper.VerifyPassword(LoginUser.Password, passwordHash))
@@ -59,15 +121,14 @@ namespace DiscGolfWeb.Pages.Account
                             return false;
                         }
                     }
-                    else
-                    {
-                        return false;
-                    }
+
+
                 }
                 else
                 {
                     return false;
                 }
+
             }
         }
 
@@ -81,6 +142,9 @@ namespace DiscGolfWeb.Pages.Account
                 cmd.Parameters.AddWithValue("@userId", userId);
                 conn.Open();
                 cmd.ExecuteNonQuery();
+
+
+
             }
         }
     }
