@@ -1,6 +1,8 @@
 ﻿@page
 @model DiscGolfWeb.Pages.Account.ProfileModel
 @{
+
+    Layout = HttpContext.User.Identity.IsAuthenticated ? "_LayoutAuthenticated" : "_Layout";
 }
 <div class="row m-2">
         <div class="col-3">
