@@ -1,0 +1,72 @@
+﻿@page
+@model DiscGolfWeb.Pages.Menus.EditItemModel
+@{
+}
+<form method="post" class="form-group">
+    <div class="row m-2">
+        <div class="col-2">
+           Edit Item
+        </div>
+    </div>
+    <div class="row m-2">
+        <div class="col-2">
+            <label asp-for="Item.ItemCode"></label>
+        </div>
+        <div class="col-10">
+            <input type="text" class="form-control" asp-for="Item.ItemCode" />
+        </div>
+
+    </div>
+    <div class="row m-2">
+        <div class="col-2">
+            <label asp-for="Item.ItemName"></label>
+        </div>
+        <div class="col-10">
+            <input type="text" class="form-control" asp-for="Item.ItemName" />
+        </div>
+
+    </div>
+    <div class="row m-2">
+        <div class="col-2">
+            <label asp-for="Item.ItemDescription"></label>
+        </div>
+        <div class="col-10">
+            <textarea class="form-control" asp-for="Item.ItemDescription"></textarea>
+        </div>
+
+    </div>
+    <div class="row m-2">
+        <div class="col-2">
+            <label asp-for="Item.ItemPrice"></label>
+        </div>
+        <div class="col-10">
+            <input type="text" class="form-control" asp-for="Item.ItemPrice" />
+        </div>
+
+    </div>
+    <div class="row m-2">
+        <div class="col-2">
+            <label asp-for="Item.Specification"></label>
+        </div>
+        <div class="col-10">
+            <select asp-for="Item.Specification" asp-items="@Model.Specifications"></select>
+        </div>
+
+    </div>
+    <div class="row m-2">
+        <div class="col-2">
+            <label asp-for="Item.ItemImage"></label>
+        </div>
+        <div class="col-10">
+            <input type="url" class="form-control" asp-for="Item.ItemImage" />
+        </div>
+
+    </div>
+    <div class="row m-2">
+        <div class="col-2">
+            <input type="submit" value="Update" class="btn btn-primary" />
+        </div>
+
+    </div>
+</form>
+

@@ -15,7 +15,7 @@ namespace DiscGolfWeb.Pages.Menus
         public List<SelectListItem> Specifications { get; set; } = new List<SelectListItem>();
         public void OnGet()
         {
-            PopulateSpecificationDDL();
+            PopulateSpecificationsDDL();
         }
         public IActionResult OnPost()
         {
@@ -43,13 +43,13 @@ namespace DiscGolfWeb.Pages.Menus
             }
             else
             {
-                PopulateSpecificationDDL();
+                PopulateSpecificationsDDL();
                 return Page();
                 
             }
         }
 
-        private void PopulateSpecificationDDL()
+        private void PopulateSpecificationsDDL()
         {
             Specifications.Add(new SelectListItem { Value = "None", Text = "None" });
             Specifications.Add(new SelectListItem { Value = "Putter", Text = "Putter" });
