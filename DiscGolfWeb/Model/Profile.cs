@@ -4,6 +4,7 @@ namespace DiscGolfWeb.Model
 {
     public class Profile
     {
+
             public int PersonId { get; set; }
             
             [Display(Name = "First Name")]
@@ -19,6 +20,6 @@ namespace DiscGolfWeb.Model
           
             public string? Phone { get; set; }
 
-       
+     
     }
 }
