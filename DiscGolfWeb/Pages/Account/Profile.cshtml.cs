@@ -17,7 +17,7 @@ namespace DiscGolfWeb.Pages.Account
 
 
         [BindProperty]
-        public Profile ProfileUser { get; set; } = new Profile();
+        public Profile profile { get; set; } = new Profile();
         public void OnGet()
         {
             PopulateProfile();
@@ -38,10 +38,10 @@ namespace DiscGolfWeb.Pages.Account
                 if(reader.HasRows)
                 {
                     reader.Read();
-                    ProfileUser.FirstName = reader.GetString(0);
-                    ProfileUser.LastName = reader.GetString(1);
-                    ProfileUser.Email = email;
-                    ProfileUser.Phone = reader.GetString(2);
+                    profile.FirstName = reader.GetString(0);
+                    profile.LastName = reader.GetString(1);
+                    profile.Email = email;
+                    profile.Phone = reader.GetString(2);
                    // Profile.LastLoginTime = reader.GetDateTime;
                 }
             }
