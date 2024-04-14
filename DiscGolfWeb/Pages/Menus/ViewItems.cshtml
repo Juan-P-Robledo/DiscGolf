@@ -2,3 +2,68 @@
 @model DiscGolfWeb.Pages.Menus.ViewItemsModel
 @{
 }
+<form method="post" class="form-group">
+    <div class="row m-2">
+        <div class="col-2">
+            <label class="form-label">Category</label>
+        </div>
+        <div class="col-8">
+            <select asp-for="SelectedSpecification" asp-items="Model.Specifications"></select>
+        </div>
+        <div class="col-2">
+            <button class="btn btn-primary" id="btnView">Display</button>
+        </div>
+    </div>
+    @foreach (var Item in Model.DiscItems)
+    {
+        <div class="row m-2 border">
+            <div class="row m-2">
+                <div class="col-2">
+                    <label class="form-label" asp-for="@Item.ItemCode"></label>
+                </div>
+                <div class="col-10">
+                    <label class="form-label">@Item.ItemCode</label>
+                </div>
+            </div>
+            <div class="row m-2">
+                <div class="col-2">
+                    <label class="form-label" asp-for="@Item.ItemName"></label>
+                </div>
+                <div class="col-10">
+                    <label class="form-label">@Item.ItemName</label>
+                </div>
+            </div>
+            <div class="row m-2">
+                <div class="col-2">
+                    <label class="form-label" asp-for="@Item.ItemDescription"></label>
+                </div>
+                <div class="col-10">
+                    <label class="form-label">@Item.ItemDescription</label>
+                </div>
+            </div>
+            <div class="row m-2">
+                <div class="col-2">
+                    <label class="form-label" asp-for="@Item.ItemPrice"></label>
+                </div>
+                <div class="col-10">
+                    <label class="form-label">@Item.ItemPrice</label>
+                </div>
+            </div>
+            <div class="row m-2">
+                <div class="col-2">
+                    <label class="form-label" asp-for="@Item.ItemImage"></label>
+                </div>
+                <div class="col-10">
+                    <img src="@Item.ItemImage" alt="Product Image" width="300" height="200" />
+                </div>
+            </div>
+            <div class="row m-2">
+                <div class="col-2">
+                    <a asp-page="EditItem" asp-route-id="@Item.ItemID" class="btn btn-primary">Edit</a>
+                </div>
+               
+            </div>
+        </div>
+    }
+</form>
+

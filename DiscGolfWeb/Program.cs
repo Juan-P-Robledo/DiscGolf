@@ -1,7 +1,17 @@
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.Extensions.DependencyInjection;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
+
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+ .AddCookie(options =>
+  {
+      options.Cookie.Name = "MyDiscGolfCookie";
+      options.LoginPath = "/Account/Login";
+  });
 
 var app = builder.Build();
 
