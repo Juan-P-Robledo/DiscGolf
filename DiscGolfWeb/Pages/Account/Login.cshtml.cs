@@ -8,6 +8,7 @@ using System.Security.Claims;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication;
 
+
 namespace DiscGolfWeb.Pages.Account
 {
     public class LoginModel : PageModel
@@ -22,23 +23,30 @@ namespace DiscGolfWeb.Pages.Account
         { 
             if (ModelState.IsValid)
             {
+
                 
+
                 if(ValidateCredentials())
                 {
                     return RedirectToPage("Profile");
                 }
                 else
                 {
+
                     ModelState.AddModelError("LoginError", "Invalid credentials. Try Again");
+
                     return Page();
                 }
             }
             else
             {
+
                 
+
                 return Page();
             }
         }
+
 
         private IActionResult ProcessLogin()
         {
@@ -83,17 +91,22 @@ namespace DiscGolfWeb.Pages.Account
             
         }
 
+
         private bool ValidateCredentials()
         {
             using (SqlConnection conn = new SqlConnection(SecurityHelper.GetDBConnectionString()))
             {
 
+
               //  string cmdText = "SELECT Password FROM Users WHERE Email=@email";
                 string cmdText = "SELECT Password, UserID, FirstName FROM Users WHERE Email=@email"; 
+
                 SqlCommand cmd = new SqlCommand(cmdText, conn);
+
                 cmd.Parameters.AddWithValue("@email", LoginUser.Email);
                 conn.Open();
                 SqlDataReader reader = cmd.ExecuteReader();
+
                 if (reader.HasRows)
                 {
                     reader.Read();
@@ -135,11 +148,29 @@ namespace DiscGolfWeb.Pages.Account
                             return false;
                         }
                     }
+
+
                 }
                 else
                 {
                     return false;
                 }
+
+            }
+        }
+
+        private void UpdateLastLoginTime(int userId)
+        {
+            using(SqlConnection conn = new SqlConnection(SecurityHelper.GetDBConnectionString()))
+            {
+                string cmdText = "UPDATE Person SET LastLoginTime=@lastLoginTime WHERE UserId=@userId";
+                SqlCommand cmd = new SqlCommand(cmdText, conn);
+                cmd.Parameters.AddWithValue("@lastLoginTime", DateTime.Now);
+                cmd.Parameters.AddWithValue("@userId", userId);
+                conn.Open();
+                cmd.ExecuteNonQuery();
+
+
 
             }
         }

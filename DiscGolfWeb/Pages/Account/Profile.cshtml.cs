@@ -1,4 +1,6 @@
+
 using DiscGolfBusiness;
+
 using DiscGolfWeb.Model;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -6,11 +8,14 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Data.SqlClient;
 using System.Security.Claims;
 
+
 namespace DiscGolfWeb.Pages.Account
 {
     [Authorize]
     public class ProfileModel : PageModel
     {
+
+
         [BindProperty]
         public Profile ProfileUser { get; set; } = new Profile();
         public void OnGet()
@@ -21,6 +26,7 @@ namespace DiscGolfWeb.Pages.Account
 
         private void PopulateProfile()
         {
+
             String email = HttpContext.User.FindFirstValue(ClaimTypes.Email);
             using (SqlConnection conn = new SqlConnection(SecurityHelper.GetDBConnectionString()))
             {
@@ -39,6 +45,7 @@ namespace DiscGolfWeb.Pages.Account
                    // Profile.LastLoginTime = reader.GetDateTime;
                 }
             }
+
         }
     }
 }
