@@ -4,6 +4,7 @@
 }
 
 
+
     <style>
 
 
@@ -65,13 +66,11 @@
 
         .image-container 
         {
+
         text-align: center; /* Center align its contents horizontally */
-        }
-    </style>
-   
-    
+    }
+</style>
     <body>
-    <h1>Login</h1>
 
 
 
@@ -81,8 +80,6 @@
     </div>
     </body>
        
-
-    
 
 <form method="post">
     <div class="row m-2 text-danger" asp-validation-summary="All"></div> 
@@ -104,7 +101,7 @@
         <span class="text-danger" asp-validation-for="LoginUser.Password"></span>
     </div>
 </div>
-<div class="row m-2">
+<div class="row m-2" id="btnLogin">
         <div class="col-3">
             <button id="btnLogin" class="btn btn-primary">Sign In</button>
         </div>
