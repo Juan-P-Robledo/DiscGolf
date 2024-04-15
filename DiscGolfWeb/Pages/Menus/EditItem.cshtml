@@ -5,6 +5,7 @@
 <style>
     body {
         background-image: url('https://i.pinimg.com/736x/91/b7/f5/91b7f5e0c42251f849fe21b0332877a8.jpg'); /* Specify 	the URL of your image */
+
         background-size: cover;
         background-repeat: no-repeat;
         background-position: center;
@@ -12,12 +13,11 @@
         font-family: Arial, sans-serif;
         margin: 0;
         display: flex;
-        justify-content: center;
-        align-items: center;
         height: 100vh;
         flex-direction: column;
         background-color: rgba(0, 0, 0, 0.2);
     }
+
 
     form {
         background-color: rgba(194,219,189,255);
@@ -26,7 +26,7 @@
         color: rgba(29,50,53,255);
         align-items: center;
         white-space: nowrap;
-        max-width: 650px;
+        max-width: 550px;
         margin: 0 auto;
     }
 
@@ -42,7 +42,7 @@
         box-sizing: border-box;
     }
 
-    #btnAdd {
+    #btnUpdate {
         background-color: rgba(97,130,109,255);
         color: white;
         padding: 5px 5px;
@@ -62,11 +62,10 @@
         text-align: center; /* Center align its contents horizontally */
     }
 </style>
-
 <form method="post" class="form-group">
     <div class="row m-2">
         <div class="col-2">
-           Edit Item
+            <h1> Edit Item</h1>
         </div>
     </div>
     <div class="row m-2">
@@ -125,7 +124,7 @@
     </div>
     <div class="row m-2">
         <div class="col-2">
-            <input type="submit" value="Update" class="btn btn-primary" />
+            <input type="submit" value="Update" id="btnUpdate" class="btn btn-primary" />
         </div>
 
     </div>

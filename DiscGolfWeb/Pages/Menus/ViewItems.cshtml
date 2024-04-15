@@ -59,7 +59,7 @@
             </div>
             <div class="row m-2">
                 <div class="col-2">
-                    <a asp-page="EditItem" asp-route-id="@Item.ItemID" class="btn btn-primary">Edit</a>
+                    <a asp-page="EditItem" asp-route-id="@Item.ItemID" id="btnEdit" class="btn btn-primary">Edit</a>
                 </div>
                
             </div>
@@ -107,7 +107,7 @@
         box-sizing: border-box;
     }
 
-    #btnView {
+    #btnView,#btnEdit {
         background-color: rgba(97,130,109,255);
         color: white;
         padding: 5px 5px;
