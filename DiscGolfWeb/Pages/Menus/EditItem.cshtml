@@ -1,6 +1,7 @@
 ﻿@page
 @model DiscGolfWeb.Pages.Menus.EditItemModel
 @{
+    Layout = HttpContext.User.Identity.IsAuthenticated ? "_LayoutAuthenticated" : "_Layout";
 }
 <style>
     body {
