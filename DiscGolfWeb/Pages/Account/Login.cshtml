@@ -30,8 +30,13 @@
 
 
         form {
-            max-width: 400px;
-            margin: 0 auto;
+        background-color: rgba(194,219,189,255);
+        border: 5px solid rgba(97,130,109,255);
+        border-radius: 10px;
+        color: rgba(29,50,53,255);
+        white-space: nowrap;
+        max-width: 350px;
+        margin: 0 auto;
         }
 
         label {
@@ -66,10 +71,9 @@
    
     
     <body>
-    <h1>Sign Up</h1>
+    <h1>Login</h1>
 
 
-    <h1> Alien Disc Golf</h1>
 
     <div class="image-container">
         <img src="https://cdn.shopify.com/s/files/1/0538/2455/3132/products/ufodisckmockup-modified_2048x2048.png?v=1651357323" alt="Disc Golf Logo" width="200" height="200">
@@ -83,7 +87,7 @@
 <form method="post">
     <div class="row m-2 text-danger" asp-validation-summary="All"></div> 
 <div class="row m-2">
-    <div class="col-2">
+    <div class="col-3">
         <label class="form-label" asp-for="LoginUser.Email"></label>
     </div>
     <div class="col-10">
@@ -92,7 +96,7 @@
     </div>
 </div>
 <div class="row m-2">
-    <div class="col-2">
+    <div class="col-3">
         <label class="form-label" asp-for="LoginUser.Password"></label>
     </div>
     <div class="col-10">
