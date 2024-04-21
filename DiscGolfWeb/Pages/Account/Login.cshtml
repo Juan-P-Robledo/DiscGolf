@@ -1,6 +1,7 @@
 @page
 @model DiscGolfWeb.Pages.Account.LoginModel
 @{
+    Layout = HttpContext.User.Identity.IsAuthenticated ? "_LayoutAuthenticated" : "_Layout";
 }
 
 

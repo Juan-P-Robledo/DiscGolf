@@ -1,7 +1,9 @@
 ﻿@page
 @model IndexModel
 @{
+    Layout = HttpContext.User.Identity.IsAuthenticated ? "_LayoutAuthenticated" : "_Layout";
     ViewData["Title"] = "Home page";
+
 }
 
 <div class="text-center">

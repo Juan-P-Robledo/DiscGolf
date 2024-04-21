@@ -14,6 +14,8 @@ namespace DiscGolfWeb.Model
         [Required(ErrorMessage = "You must enter a email")]
         public string Email { get; set; }
         [Required(ErrorMessage = "You must enter a password")]
+        [RegularExpression(@"^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$", 
+        ErrorMessage = "Must be 8 characters long and contain at least one letter, digit, and special character.")]
         public string Password { get; set; }
 
         [Display(Name = "Phone (Optional)")]
