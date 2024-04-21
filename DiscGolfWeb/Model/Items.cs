@@ -15,7 +15,9 @@ namespace DiscGolfWeb.Model
         [Display(Name ="Price")]
         public decimal ItemPrice { get; set; }
 
-        public string Specification {  get; set; }
+        public string ItemBrand {  get; set; }
+
+        public int ItemCategory {  get; set; }
         [Display(Name ="Image")]
         public string ItemImage { get; set; }
     }
