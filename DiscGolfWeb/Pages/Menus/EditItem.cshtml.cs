@@ -12,7 +12,7 @@ namespace DiscGolfWeb.Pages.Menus
     {
         public Items Item { get; set; } = new Items();
 
-        public List<SelectListItem> Specifications { get; set; } = new List<SelectListItem>();
+        public List<SelectListItem> Categories { get; set; } = new List<SelectListItem>();
         public void OnGet(int id)
         {
             PopulateMenuItem(id);
@@ -25,13 +25,14 @@ namespace DiscGolfWeb.Pages.Menus
             {
                 using (SqlConnection conn = new SqlConnection(SecurityHelper.GetDBConnectionString()))
                 {
-                    string cmdText = "UPDATE Products SET Code=@ItemCode, Name=@ItemName, Description=@ItemDescription, Price=@ItemPrice, Specification=@Specification, Image=@ItemImage WHERE ProductID=@itemId";
+                    string cmdText = "UPDATE Products SET Code=@ItemCode, Name=@ItemName, Description=@ItemDescription, Price=@ItemPrice, Brand=@ItemBrand, CategoryID=@ItemCategory, Image=@ItemImage WHERE ProductID=@itemId";
                     SqlCommand cmd = new SqlCommand(cmdText, conn);
                     cmd.Parameters.AddWithValue("@ItemCode", Item.ItemCode);
                     cmd.Parameters.AddWithValue("@ItemName", Item.ItemName);
                     cmd.Parameters.AddWithValue("@ItemDescription", Item.ItemDescription);
                     cmd.Parameters.AddWithValue("@ItemPrice", Item.ItemPrice);
-                    cmd.Parameters.AddWithValue("@Specification", Item.Specification);
+                    cmd.Parameters.AddWithValue("@ItemBrand", Item.ItemBrand);
+                    cmd.Parameters.AddWithValue("@ItemCategory", Item.ItemCategory);
                     cmd.Parameters.AddWithValue("@ItemImage", Item.ItemImage);
                     cmd.Parameters.AddWithValue("@itemId", id);
 
@@ -53,18 +54,30 @@ namespace DiscGolfWeb.Pages.Menus
 
         private void PopulateSpecificationsDDL()
         {
-            Specifications.Add(new SelectListItem { Value = "None", Text = "None" });
-            Specifications.Add(new SelectListItem { Value = "Putter", Text = "Putter" });
-            Specifications.Add(new SelectListItem { Value = "Midrange", Text = "Midrange" });
-            Specifications.Add(new SelectListItem { Value = "Fairway", Text = "Fairway" });
-            Specifications.Add(new SelectListItem { Value = "Driver", Text = "Driver" });
+            using (SqlConnection conn = new SqlConnection(SecurityHelper.GetDBConnectionString()))
+            {
+                string cmdText = "SELECT CategoryID, CategoryName FROM Category";
+                SqlCommand cmd = new SqlCommand(cmdText, conn);
+                conn.Open();
+                SqlDataReader reader = cmd.ExecuteReader();
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        var category = new SelectListItem();
+                        category.Value = reader.GetInt32(0).ToString();
+                        category.Text = reader.GetString(1);
+                        Categories.Add(category);
+                    }
+                }
+            }
         }
 
         private void PopulateMenuItem(int id)
         {
             using (SqlConnection conn = new SqlConnection(SecurityHelper.GetDBConnectionString()))
             {
-                string cmdText = "SELECT ProductID, Code, Name, Description, Price, Specification, Image FROM Products WHERE ProductID=@itemId";
+                string cmdText = "SELECT ProductID, Code, Name, Description, Price, Brand, CategoryID, Image FROM Products WHERE ProductID=@itemId";
                 SqlCommand cmd = new SqlCommand(cmdText, conn);
                 cmd.Parameters.AddWithValue("@itemId", id);
                 conn.Open();
@@ -77,8 +90,9 @@ namespace DiscGolfWeb.Pages.Menus
                     Item.ItemName = reader.GetString(2);
                     Item.ItemDescription = reader.GetString(3);
                     Item.ItemPrice = reader.GetDecimal(4);
-                    Item.Specification = reader.GetString(5);
-                    Item.ItemImage = reader.GetString(6);
+                    Item.ItemBrand = reader.GetString(5);
+                    Item.ItemCategory = reader.GetInt32(6);
+                    Item.ItemImage = reader.GetString(7);
 
                 }
             }

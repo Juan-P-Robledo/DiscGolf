@@ -42,10 +42,19 @@
     </div>
     <div class="row m-2">
         <div class="col-2">
-            <label asp-for="newItem.Specification"></label>
+            <label asp-for="newItem.ItemBrand"></label>
         </div>
         <div class="col-10">
-            <select asp-for="newItem.Specification" asp-items="@Model.Specifications"></select>
+            <input type="text" class="form-control" asp-for="newItem.ItemBrand" />
+        </div>
+
+    </div>
+    <div class="row m-2">
+        <div class="col-2">
+            <label asp-for="newItem.ItemCategory"></label>
+        </div>
+        <div class="col-10">
+            <select asp-for="newItem.ItemCategory" asp-items="@Model.Categories"></select>
         </div>
 
     </div>

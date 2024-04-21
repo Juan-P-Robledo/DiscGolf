@@ -10,11 +10,11 @@ namespace DiscGolfWeb.Pages.Menus
     [BindProperties]
     public class ViewItemsModel : PageModel
     {
-        public List<SelectListItem> Specifications { get; set; } = new List<SelectListItem>();
+        public List<SelectListItem> Categories { get; set; } = new List<SelectListItem>();
 
         public List<Items> DiscItems { get; set; } = new List<Items>();
 
-        public string SelectedSpecification { get; set; }
+        public int SelectedID { get; set; }
         
        public void OnGet()
         {
@@ -23,17 +23,17 @@ namespace DiscGolfWeb.Pages.Menus
 
         public void OnPost() 
         {
-            PopulateItems(SelectedSpecification);
+            PopulateItems(SelectedID);
             PopulateSpecificationDDL();
         }
 
-        private void PopulateItems(string Spec)
+        private void PopulateItems(int id)
         {
             using (SqlConnection conn = new SqlConnection(SecurityHelper.GetDBConnectionString()))
             {
-                string cmdText = "SELECT Code, Name, Description, Price, ProductID, Image FROM Products WHERE Specification=@itemSpec";
+                string cmdText = "SELECT Code, Name, Description, Price, ProductID, Image, Brand, CategoryID FROM Products WHERE CategoryID=@CatID";
                 SqlCommand cmd = new SqlCommand(cmdText, conn);
-                cmd.Parameters.AddWithValue("@itemSpec", Spec);
+                cmd.Parameters.AddWithValue("@CatID", id);
                 conn.Open();
                 SqlDataReader reader = cmd.ExecuteReader();
                 if(reader.HasRows)
@@ -47,6 +47,8 @@ namespace DiscGolfWeb.Pages.Menus
                         item.ItemPrice = reader.GetDecimal(3);
                         item.ItemID = reader.GetInt32(4);
                         item.ItemImage = reader.GetString(5);
+                        item.ItemBrand = reader.GetString(6);
+                        item.ItemCategory = reader.GetInt32(7);
                         DiscItems.Add(item);
                     }
                 }
@@ -55,12 +57,24 @@ namespace DiscGolfWeb.Pages.Menus
 
         private void PopulateSpecificationDDL()
         {
-            
-            Specifications.Add(new SelectListItem { Value = "None", Text = "None" });
-            Specifications.Add(new SelectListItem { Value = "Putter", Text = "Putter" });
-            Specifications.Add(new SelectListItem { Value = "Midrange", Text = "Midrange" });
-            Specifications.Add(new SelectListItem { Value = "Fairway", Text = "Fairway" });
-            Specifications.Add(new SelectListItem { Value = "Driver", Text = "Driver" });
+
+            using (SqlConnection conn = new SqlConnection(SecurityHelper.GetDBConnectionString()))
+            {
+                string cmdText = "SELECT CategoryID, CategoryName FROM Category";
+                SqlCommand cmd = new SqlCommand(cmdText, conn);
+                conn.Open();
+                SqlDataReader reader = cmd.ExecuteReader();
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        var category = new SelectListItem();
+                        category.Value = reader.GetInt32(0).ToString();
+                        category.Text = reader.GetString(1);
+                        Categories.Add(category);
+                    }
+                }
+            }
         }
     }
     

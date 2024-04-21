@@ -12,7 +12,7 @@ namespace DiscGolfWeb.Pages.Menus
     {
         public Items newItem { get; set; } = new Items();
 
-        public List<SelectListItem> Specifications { get; set; } = new List<SelectListItem>();
+        public List<SelectListItem> Categories { get; set; } = new List<SelectListItem>();
         public void OnGet()
         {
             PopulateSpecificationsDDL();
@@ -23,15 +23,17 @@ namespace DiscGolfWeb.Pages.Menus
             {
                 using (SqlConnection conn = new SqlConnection(SecurityHelper.GetDBConnectionString()))
                 {
-                    string cmdText = "INSERT INTO Products(Code, Name, Description, Price, Specification, Image)" +
-                        "VALUES (@ItemCode, @ItemName, @ItemDescription, @ItemPrice, @Specification, @ItemImage)";
+                    string cmdText = "INSERT INTO Products(Code, Name, Description, Price, Brand, Image, CategoryID)" +
+                        "VALUES (@ItemCode, @ItemName, @ItemDescription, @ItemPrice, @ItemBrand, @ItemImage, @ItemCategory)";
                     SqlCommand cmd = new SqlCommand(cmdText, conn);
                     cmd.Parameters.AddWithValue("@ItemCode", newItem.ItemCode);
                     cmd.Parameters.AddWithValue("@ItemName", newItem.ItemName);
                     cmd.Parameters.AddWithValue("@ItemDescription", newItem.ItemDescription);
                     cmd.Parameters.AddWithValue("@ItemPrice", newItem.ItemPrice);
-                    cmd.Parameters.AddWithValue("@Specification", newItem.Specification);
+                    cmd.Parameters.AddWithValue("@ItemBrand", newItem.ItemBrand);
                     cmd.Parameters.AddWithValue("@ItemImage", newItem.ItemImage);
+                    cmd.Parameters.AddWithValue("@ItemCategory", newItem.ItemCategory);
+
 
                     conn.Open();
                     cmd.ExecuteNonQuery();
@@ -51,11 +53,23 @@ namespace DiscGolfWeb.Pages.Menus
 
         private void PopulateSpecificationsDDL()
         {
-            Specifications.Add(new SelectListItem { Value = "None", Text = "None" });
-            Specifications.Add(new SelectListItem { Value = "Putter", Text = "Putter" });
-            Specifications.Add(new SelectListItem { Value = "Midrange", Text = "Midrange" });
-            Specifications.Add(new SelectListItem { Value = "Fairway", Text = "Fairway" });
-            Specifications.Add(new SelectListItem { Value = "Driver", Text = "Driver" });
+            using (SqlConnection conn = new SqlConnection(SecurityHelper.GetDBConnectionString()))
+            {
+                string cmdText = "SELECT CategoryID, CategoryName FROM Category";
+                SqlCommand cmd = new SqlCommand(cmdText, conn);
+                conn.Open();
+                SqlDataReader reader = cmd.ExecuteReader();
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        var category = new SelectListItem();
+                        category.Value = reader.GetInt32(0).ToString();
+                        category.Text = reader.GetString(1);
+                        Categories.Add(category);
+                    }
+                }
+            }
         }
     }
 }

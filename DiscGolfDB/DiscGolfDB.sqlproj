@@ -67,6 +67,7 @@
     <Build Include="dbo\Tables\Products.sql" />
     <Build Include="dbo\Tables\Collection.sql" />
     <Build Include="dbo\Tables\Orders.sql" />
+    <Build Include="dbo\Tables\Category.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="PopulateDB.sql" />
