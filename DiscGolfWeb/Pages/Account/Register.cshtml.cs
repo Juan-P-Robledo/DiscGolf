@@ -59,8 +59,8 @@ namespace DiscGolfWeb.Pages.Account
             {
 
 
-                string cmdText = "INSERT INTO Users(Firstname, LastName, Email, Password, Phone)" +
-                        "VALUES(@firstName, @lastName, @email, @password, @phone)";
+                string cmdText = "INSERT INTO Users(Firstname, LastName, Email, Password, Phone, isAdmin)" +
+                        "VALUES(@firstName, @lastName, @email, @password, @phone, @isAdmin)";
 
                 SqlCommand cmd = new SqlCommand(cmdText, conn);
                 cmd.Parameters.AddWithValue("@firstName", NewPerson.FirstName);
@@ -68,6 +68,7 @@ namespace DiscGolfWeb.Pages.Account
                 cmd.Parameters.AddWithValue("@email", NewPerson.Email);
                 cmd.Parameters.AddWithValue("@password", SecurityHelper.GeneratedPasswordHash(NewPerson.Password));
                 cmd.Parameters.AddWithValue("@phone", NewPerson.Phone);
+                cmd.Parameters.AddWithValue("@isAdmin", 0);
                 conn.Open();
                 cmd.ExecuteNonQuery();
 

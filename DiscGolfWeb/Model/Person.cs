@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Numerics;
 
 namespace DiscGolfWeb.Model
 {
@@ -15,11 +16,16 @@ namespace DiscGolfWeb.Model
         public string Email { get; set; }
         [Required(ErrorMessage = "You must enter a password")]
         [RegularExpression(@"^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$", 
-        ErrorMessage = "Must be 8 characters long and contain at least one letter, digit, and special character.")]
+        ErrorMessage = "Must be 8 characters long and have at least one letter, digit, and special character.")]
         public string Password { get; set; }
 
         [Display(Name = "Phone (Optional)")]
          public string? Phone { get; set; }
+        [Display(Name ="Last Login Time")]
+        public DateTime LastLoginTime { get; set; }
+
+
+        public bool isAdmin { get; set; }
 
     }
 }

@@ -20,6 +20,7 @@ namespace DiscGolfWeb.Model
           
             public string? Phone { get; set; }
 
+            public DateTime LastLoginTime { get; set; }
      
     }
 }
