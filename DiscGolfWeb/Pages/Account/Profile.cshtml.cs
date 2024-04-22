@@ -30,7 +30,7 @@ namespace DiscGolfWeb.Pages.Account
             String email = HttpContext.User.FindFirstValue(ClaimTypes.Email);
             using (SqlConnection conn = new SqlConnection(SecurityHelper.GetDBConnectionString()))
             {
-                string cmdText = "SELECT FirstName, LastName, Phone FROM Users WHERE Email=@email";
+                string cmdText = "SELECT FirstName, LastName, Phone, LastLoginTime FROM Users WHERE Email=@email";
                 SqlCommand cmd = new SqlCommand(cmdText, conn);
                 cmd.Parameters.AddWithValue("@email", email);
                 conn.Open();
@@ -42,6 +42,7 @@ namespace DiscGolfWeb.Pages.Account
                     profile.LastName = reader.GetString(1);
                     profile.Email = email;
                     profile.Phone = reader.GetString(2);
+                    profile.LastLoginTime = reader.GetDateTime(3);
                    // Profile.LastLoginTime = reader.GetDateTime;
                 }
             }

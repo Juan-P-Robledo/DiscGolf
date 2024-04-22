@@ -28,6 +28,7 @@ namespace DiscGolfWeb.Pages.Account
 
                 if(ValidateCredentials())
                 {
+                    UpdateLastLoginTime(LoginUser.Email);
                     return RedirectToPage("Profile");
                 }
                 else
@@ -99,7 +100,7 @@ namespace DiscGolfWeb.Pages.Account
 
 
               //  string cmdText = "SELECT Password FROM Users WHERE Email=@email";
-                string cmdText = "SELECT Password, UserID, FirstName FROM Users WHERE Email=@email"; 
+                string cmdText = "SELECT Password, UserID, FirstName, isAdmin FROM Users WHERE Email=@email"; 
 
                 SqlCommand cmd = new SqlCommand(cmdText, conn);
 
@@ -121,12 +122,16 @@ namespace DiscGolfWeb.Pages.Account
                         {
 
                             string name = reader.GetString(2);
+                            bool isAdmin = reader.GetBoolean(3);
                            
                             //1. Create a list of claims
                             Claim emailClaim = new Claim(ClaimTypes.Email, LoginUser.Email);
                             Claim nameClaim = new Claim(ClaimTypes.Name, name);
+                            Claim isAdminClaim = new Claim("isAdmin", isAdmin.ToString(), ClaimValueTypes.Boolean);
 
-                            List<Claim> claims = new List<Claim> { emailClaim, nameClaim };
+
+
+                            List<Claim> claims = new List<Claim> { emailClaim, nameClaim, isAdminClaim };
 
                             //2. Create a Claims Identity
                             ClaimsIdentity identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
@@ -159,14 +164,14 @@ namespace DiscGolfWeb.Pages.Account
             }
         }
 
-        private void UpdateLastLoginTime(int userId)
+        private void UpdateLastLoginTime(string email)
         {
             using(SqlConnection conn = new SqlConnection(SecurityHelper.GetDBConnectionString()))
             {
-                string cmdText = "UPDATE Person SET LastLoginTime=@lastLoginTime WHERE UserId=@userId";
+                string cmdText = "UPDATE Users SET LastLoginTime=@lastLoginTime WHERE Email=@email";
                 SqlCommand cmd = new SqlCommand(cmdText, conn);
                 cmd.Parameters.AddWithValue("@lastLoginTime", DateTime.Now);
-                cmd.Parameters.AddWithValue("@userId", userId);
+                cmd.Parameters.AddWithValue("@email", email);
                 conn.Open();
                 cmd.ExecuteNonQuery();
 

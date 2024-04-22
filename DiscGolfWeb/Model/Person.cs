@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Numerics;
 
 namespace DiscGolfWeb.Model
 {
@@ -20,6 +21,11 @@ namespace DiscGolfWeb.Model
 
         [Display(Name = "Phone (Optional)")]
          public string? Phone { get; set; }
+        [Display(Name ="Last Login Time")]
+        public DateTime LastLoginTime { get; set; }
+
+
+        public bool isAdmin { get; set; }
 
     }
 }

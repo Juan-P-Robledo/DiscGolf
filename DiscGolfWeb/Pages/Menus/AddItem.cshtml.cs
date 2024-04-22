@@ -1,5 +1,7 @@
 using DiscGolfBusiness;
 using DiscGolfWeb.Model;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -7,6 +9,7 @@ using Microsoft.Data.SqlClient;
 
 namespace DiscGolfWeb.Pages.Menus
 {
+    //[Authorize()]
     [BindProperties]
     public class AddItemModel : PageModel
     {
