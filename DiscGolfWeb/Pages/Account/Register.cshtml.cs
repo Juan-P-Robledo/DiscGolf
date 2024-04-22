@@ -27,7 +27,7 @@ namespace DiscGolfWeb.Pages.Account
                 if (EmailDoesNotExist(NewPerson.Email))
                 {
                     RegisterUser();
-                    return RedirectToPage("/Index");
+                    return RedirectToPage("Login");
 
                 }
                 else
