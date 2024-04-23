@@ -4,14 +4,36 @@
     Layout = HttpContext.User.Identity.IsAuthenticated ? "_LayoutAuthenticated" : "_Layout";
 }
 
+<form method="post">
+    <div class="row m-2 text-danger" asp-validation-summary="All"></div> 
+        <div class="row m-2">
+            <div class="col-3">
+                <label class="form-label" asp-for="LoginUser.Email"></label>
+            </div>
+            <div class="col-10">
+                <input type="email" class="form-control" asp-for="LoginUser.Email" />
+                <span class="text-danger" asp-validation-for="LoginUser.Email"></span>
+            </div>
+        </div>
+        <div class="row m-2">
+            <div class="col-3">
+                <label class="form-label" asp-for="LoginUser.Password"></label>
+            </div>
+            <div class="col-10">
+                <input type="password" class="form-control" asp-for="LoginUser.Password" />
+                <span class="text-danger" asp-validation-for="LoginUser.Password"></span>
+            </div>
+        </div>
+        <div class="row m-2" id="btnLogin">
+            <div class="col-3">
+                <button id="btnLogin" class="btn btn-primary">Sign In</button>
+            </div>
+        </div>
+</form>
 
-
-    <style>
-
-
+<style>
     body {
         background-image: url('https://i.pinimg.com/736x/91/b7/f5/91b7f5e0c42251f849fe21b0332877a8.jpg'); /* Specify 	the URL of your image */
-
         background-size: cover;
         background-repeat: no-repeat;
         background-position: center;
@@ -24,8 +46,7 @@
         background-color: rgba(0, 0, 0, 0.2);
     }
 
-
-        form {
+    form {
         background-color: rgba(194,219,189,255);
         border: 5px solid rgba(97,130,109,255);
         border-radius: 10px;
@@ -33,21 +54,21 @@
         white-space: nowrap;
         max-width: 350px;
         margin: 0 auto;
-        }
+    }
 
-        label {
-            display: block;
-            margin-bottom: 8px;
-        }
+    label {
+        display: block;
+        margin-bottom: 8px;
+    }
 
-        input {
-            width: 100%;
-            padding: 8px;
-            margin-bottom: 16px;
-            box-sizing: border-box;
-        }
+    input {
+        width: 100%;
+        padding: 8px;
+        margin-bottom: 16px;
+        box-sizing: border-box;
+    }
 
-        #btnLogin {
+    #btnLogin {
         background-color: rgba(97,130,109,255);
         color: white;
         padding: 5px 5px;
@@ -57,53 +78,22 @@
         border: none;
         border-radius: 4px;
         cursor: pointer;
-        }
-        h1 {
-            text-align: center;
-        }
+    }
 
-        .image-container 
-        {
+    h1 {
+        text-align: center;
+    }
 
+    .image-container {
         text-align: center; /* Center align its contents horizontally */
     }
 </style>
-    
-
 
 <!--
-    <body>
-    <div class="image-container">
-        <img src="https://cdn.shopify.com/s/files/1/0538/2455/3132/products/ufodisckmockup-modified_2048x2048.png?v=1651357323" alt="Disc Golf Logo" width="200" height="200">
-        
-    </div>
-    </body>
-   -->    
+ <body>
+ <div class="image-container">
+     <img src="https://cdn.shopify.com/s/files/1/0538/2455/3132/products/ufodisckmockup-modified_2048x2048.png?v=1651357323" alt="Disc Golf Logo" width="200" height="200">
 
-<form method="post">
-    <div class="row m-2 text-danger" asp-validation-summary="All"></div> 
-<div class="row m-2">
-    <div class="col-3">
-        <label class="form-label" asp-for="LoginUser.Email"></label>
-    </div>
-    <div class="col-10">
-        <input type="email" class="form-control" asp-for="LoginUser.Email" />
-        <span class="text-danger" asp-validation-for="LoginUser.Email"></span>
-    </div>
-</div>
-<div class="row m-2">
-    <div class="col-3">
-        <label class="form-label" asp-for="LoginUser.Password"></label>
-    </div>
-    <div class="col-10">
-        <input type="password" class="form-control" asp-for="LoginUser.Password" />
-        <span class="text-danger" asp-validation-for="LoginUser.Password"></span>
-    </div>
-</div>
-<div class="row m-2" id="btnLogin">
-        <div class="col-3">
-            <button id="btnLogin" class="btn btn-primary">Sign In</button>
-        </div>
-</div>
-
-</form>
+ </div>
+ </body>
+-->
