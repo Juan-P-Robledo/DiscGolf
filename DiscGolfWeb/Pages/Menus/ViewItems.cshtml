@@ -17,68 +17,37 @@
     </div>
     @foreach (var Item in Model.DiscItems)
     {
-        <div  id="Info"class="row m-2 border">
-            <div class="row m-2">
-                <div class="col-2">
-                    <label class="form-label" asp-for="@Item.ItemCode"></label>
-                </div>
-                <div class="col-10">
-                    <label class="form-label">@Item.ItemCode</label>
-                </div>
+        <div id="Info" class="m-2">
+            <div class="col-2">
+                <label class="form-label" asp-for="@Item.ItemCode"></label>
+                <label class="form-label">@Item.ItemCode</label>
             </div>
-            <div class="row m-2">
-                <div class="col-2">
-                    <label class="form-label" asp-for="@Item.ItemName"></label>
-                </div>
-                <div class="col-10">
-                    <label class="form-label">@Item.ItemName</label>
-                </div>
+            <div class="col-2">
+                <label class="form-label" asp-for="@Item.ItemName"></label>
+                <label class="form-label">@Item.ItemName</label>
             </div>
-            <div class="row m-2">
-                <div class="col-2">
-                    <label class="form-label" asp-for="@Item.ItemDescription"></label>
-                </div>
-                <div class="col-10">
-                    <label class="form-label">@Item.ItemDescription</label>
-                </div>
+            <div class="col-2">
+                <label class="form-label" asp-for="@Item.ItemDescription"></label>
+                <label class="form-label">@Item.ItemDescription</label>
             </div>
-            <div class="row m-2">
-                <div class="col-2">
-                    <label class="form-label" asp-for="@Item.ItemPrice"></label>
-                </div>
-                <div class="col-10">
-                    <label class="form-label">@Item.ItemPrice</label>
-                </div>
+            <div class="col-2">
+                <label class="form-label" asp-for="@Item.ItemPrice"></label>
+                <label class="form-label">@Item.ItemPrice</label>
             </div>
-            <div class="row m-2">
-                <div class="col-2">
-                    <label class="form-label" asp-for="@Item.ItemBrand"></label>
-                </div>
-                <div class="col-10">
-                    <label class="form-label">@Item.ItemBrand</label>
-                </div>
+            <div class="col-3">
+                <label class="form-label" asp-for="@Item.ItemBrand"></label>
+                <label class="form-label">@Item.ItemBrand</label>
             </div>
-            <div class="row m-2">
-                <div class="col-2">
-                    <label class="form-label" asp-for="@Item.ItemCategory"></label>
-                </div>
-                <div class="col-10">
-                    <label class="form-label">@Item.ItemCategory</label>
-                </div>
+            <div class="col-3">
+                <label class="form-label" asp-for="@Item.ItemCategory"></label>
+                <label class="form-label">@Item.ItemCategory</label>
             </div>
-            <div class="row m-2">
-                <div class="col-2">
-                    <label class="form-label" asp-for="@Item.ItemImage"></label>
-                </div>
-                <div class="col-10">
-                    <img src="@Item.ItemImage" alt="Product Image" width="200" height="200" />
-                </div>
+            <div class="col-3">
+                <label class="form-label" asp-for="@Item.ItemImage"></label>
+                <img src="@Item.ItemImage" alt="Product Image" width="100" height="100" />
             </div>
-            <div class="row m-2">
-                <div class="col-2">
-                    <a asp-page="EditItem" asp-route-id="@Item.ItemID" id="btnEdit" class="btn btn-primary">Edit</a>
-                </div>
-               
+            <div class="col-3">
+                <a asp-page="EditItem" asp-route-id="@Item.ItemID" id="btnEdit" class="btn btn-primary">Edit</a>
             </div>
         </div>
     }
@@ -100,6 +69,14 @@
         background-color: rgba(0, 0, 0, 0.2);
     }
 
+    #Info {
+        display: flex;
+        flex-wrap: wrap;
+        border: 2px solid black;
+        padding: 10px;
+        height: 250px;
+        word-wrap: normal;
+    }
 
     form {
         
@@ -109,7 +86,7 @@
         color: rgba(29,50,53,255);
         align-items: center;
         white-space: nowrap;
-        max-width: 1000px;
+        max-width: 750px;
         margin: 0 auto;
 
       
