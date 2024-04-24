@@ -46,3 +46,11 @@ button.accept-policy {
   white-space: nowrap;
   line-height: 60px;
 }
+
+#navBar {
+    background-color: rgba(194,219,189,255);
+    border: 2px solid rgba(97,130,109,255);
+    color: rgba(29,50,53,255);
+    white-space: nowrap;
+    margin: 0 auto;
+}
