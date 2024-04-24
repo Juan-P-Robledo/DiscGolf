@@ -11,7 +11,7 @@ using System.Security.Claims;
 
 namespace DiscGolfWeb.Pages.Account
 {
-   // [Authorize]
+   [Authorize]
     public class ProfileModel : PageModel
     {
 

@@ -9,7 +9,7 @@ using Microsoft.Data.SqlClient;
 
 namespace DiscGolfWeb.Pages.Menus
 {
-    //[Authorize()]
+    [Authorize(Policy ="AdminOnly")]
     [BindProperties]
     public class AddItemModel : PageModel
     {

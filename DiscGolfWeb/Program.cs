@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.AspNetCore.Authorization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,8 +11,16 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
  .AddCookie(options =>
   {
       options.Cookie.Name = "MyDiscGolfCookie";
-      options.LoginPath = "/Account/Login";
+      options.LoginPath = "/Account/AccessDenied";
   });
+
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("AdminOnly", policy =>
+    {
+        policy.RequireClaim("isAdmin", "True");
+    });
+});
 
 var app = builder.Build();
 
