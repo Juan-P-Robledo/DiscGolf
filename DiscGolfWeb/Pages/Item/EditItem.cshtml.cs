@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Data.SqlClient;
 
-namespace DiscGolfWeb.Pages.Menus
+namespace DiscGolfWeb.Pages.Item
 {
     [Authorize(Policy = "AdminOnly")]
     [BindProperties]
