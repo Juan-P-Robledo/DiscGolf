@@ -35,37 +35,46 @@
     @foreach (var Item in Model.DiscItems)
     {
         <div id="Info" class="m-2">
-            <div class="col-2">
-                <label class="form-label" asp-for="@Item.ItemCode"></label>
-                <label class="form-label">@Item.ItemCode</label>
+            <div class="col-4">
+               
+                <img src="@Item.ItemImage" alt="Product Image" width="200" height="200" />
             </div>
-            <div class="col-2">
-                <label class="form-label" asp-for="@Item.ItemName"></label>
-                <label class="form-label">@Item.ItemName</label>
-            </div>
-            <div class="col-2">
-                <label class="form-label" asp-for="@Item.ItemDescription"></label>
-                <label class="form-label">@Item.ItemDescription</label>
-            </div>
-            <div class="col-2">
-                <label class="form-label" asp-for="@Item.ItemPrice"></label>
-                <label class="form-label">@Item.ItemPrice</label>
-            </div>
-            <div class="col-3">
-                <label class="form-label" asp-for="@Item.ItemBrand"></label>
-                <label class="form-label">@Item.ItemBrand</label>
-            </div>
-            <div class="col-3">
-                <label class="form-label" asp-for="@Item.ItemCategory"></label>
-                <label class="form-label">@Item.ItemCategory</label>
-            </div>
-            <div class="col-3">
-                <label class="form-label" asp-for="@Item.ItemImage"></label>
-                <img src="@Item.ItemImage" alt="Product Image" width="100" height="100" />
-            </div>
-            <div class="col-3">
+           <div class="col-4">
+                <div class="col-2">
+                    <label class="form-label" asp-for="@Item.ItemName">Name: @Item.ItemName</label>
+                   
+       
+                </div>
+                <div class="col-2">
+                    <label class="form-label" asp-for="@Item.ItemCode">Item Code: @Item.ItemCode</label>
+                
+                </div>
+            
+            
+                <div class="col-2">
+                    <label class="form-label" asp-for="@Item.ItemBrand">Brand: @Item.ItemBrand</label>
+               
+                </div>
+                <div class="col-3">
+                    <label class="form-label" asp-for="@Item.ItemCategory">Category: @Item.itemCategory</label>
+                
+                </div>
+                <div class="col-2">
+                    <label class="form-label" asp-for="@Item.ItemPrice">Price: $@Item.ItemPrice</label>
+               
+                </div>
+
+           </div>
+
+            <div class="col-4">
                 <a asp-page="EditItem" asp-route-id="@Item.ItemID" id="btnEdit" class="btn btn-primary">Edit</a>
             </div>
+
+            <div class="col-5">
+                <label class="form-label" asp-for="@Item.ItemDescription">Description:</label>
+                <label class="form-label">@Item.ItemDescription</label>
+            </div>
+            
         </div>
     }
 </form>
@@ -83,7 +92,7 @@
         display: flex;
         height: 100vh;
         flex-direction: column;
-        background-color: rgba(0, 0, 0, 0.2);
+        background-color: #020F15;
     }
 
     #Info {
@@ -91,7 +100,7 @@
         flex-wrap: wrap;
         border: 2px solid black;
         padding: 10px;
-        height: 250px;
+        height: 350px;
         word-wrap: normal;
     }
 
@@ -109,6 +118,7 @@
       
     }
 
+    
 
     label {
         display: block;
