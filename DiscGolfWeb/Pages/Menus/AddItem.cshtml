@@ -1,7 +1,24 @@
 ﻿@page
 @model DiscGolfWeb.Pages.Menus.AddItemModel
 @{
-    Layout = HttpContext.User.Identity.IsAuthenticated ? "_LayoutAuthenticated" : "_Layout";
+   // Layout = HttpContext.User.Identity.IsAuthenticated ? "_LayoutAuthenticated" : "_Layout";
+    string layout;
+    if (HttpContext.User.Identity.IsAuthenticated)
+    {
+        if (HttpContext.User.HasClaim("isAdmin", "True"))
+        {
+            layout = "_AdminLayout"; // Use the admin layout for users with admin privilege
+        }
+        else
+        {
+            layout = "_LayoutAuthenticated"; // Use the regular authenticated layout
+        }
+    }
+    else
+    {
+        layout = "_Layout"; // Use the default layout for unauthenticated users
+    }
+    Layout = layout;
 }
 <form method="post"class="form-group">
     <div class="row m-2">
