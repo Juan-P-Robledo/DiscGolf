@@ -19,6 +19,8 @@ namespace DiscGolfWeb.Model
         public string ItemBrand {  get; set; }
         [Display(Name ="Category")]
         public int ItemCategory {  get; set; }
+
+        public string itemCategory {  get; set; }
         [Display(Name ="Image")]
         public string ItemImage { get; set; }
     }
