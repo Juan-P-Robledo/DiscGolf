@@ -40,9 +40,23 @@ button.accept-policy {
 }
 
 .footer {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  white-space: nowrap;
-  line-height: 60px;
+    background-color: rgba(2,15,21,255);
+    margin-top: auto;
+    width: 100%;
+    white-space: nowrap;
+    line-height: 60px;
+}
+
+#navBar {
+    background-color: rgba(194,219,189,255);
+    border: 2px solid rgba(97,130,109,255);
+    color: rgba(29,50,53,255);
+    white-space: nowrap;
+    margin: 0 auto;
+}
+
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
