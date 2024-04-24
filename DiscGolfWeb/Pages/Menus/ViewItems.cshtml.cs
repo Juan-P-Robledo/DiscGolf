@@ -8,7 +8,7 @@ using Microsoft.Data.SqlClient;
 
 namespace DiscGolfWeb.Pages.Menus
 {
-    [Authorize]
+   
     [BindProperties]
     public class ViewItemsModel : PageModel
     {
