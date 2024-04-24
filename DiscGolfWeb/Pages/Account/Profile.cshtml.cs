@@ -11,7 +11,7 @@ using System.Security.Claims;
 
 namespace DiscGolfWeb.Pages.Account
 {
-    [Authorize]
+   // [Authorize]
     public class ProfileModel : PageModel
     {
 
@@ -43,7 +43,7 @@ namespace DiscGolfWeb.Pages.Account
                     profile.Email = email;
                     profile.Phone = reader.GetString(2);
                     profile.LastLoginTime = reader.GetDateTime(3);
-                   // Profile.LastLoginTime = reader.GetDateTime;
+                   
                 }
             }
 
