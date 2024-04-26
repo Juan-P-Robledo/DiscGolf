@@ -1,0 +1,133 @@
+﻿@page
+@model DiscGolfWeb.Pages.Account.ViewUsersModel
+@{
+    string layout;
+    if (HttpContext.User.Identity.IsAuthenticated)
+    {
+        if (HttpContext.User.HasClaim("isAdmin", "True"))
+        {
+            layout = "_AdminLayout"; // Use the admin layout for users with admin privilege
+        }
+        else
+        {
+            layout = "_LayoutAuthenticated"; // Use the regular authenticated layout
+        }
+    }
+    else
+    {
+        layout = "_Layout"; // Use the default layout for unauthenticated users
+    }
+    Layout = layout;
+}
+<style>
+    body {
+        background-image: url('https://i.pinimg.com/736x/91/b7/f5/91b7f5e0c42251f849fe21b0332877a8.jpg'); /* Specify 	the URL of your image */
+
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
+        color: white;
+        font-family: Arial, sans-serif;
+        margin: 0;
+        display: flex;
+        height: 100vh;
+        flex-direction: column;
+        background-color: #020F15;
+    }
+
+    #Info {
+        display: flex;
+        flex-wrap: wrap;
+        border: 2px solid black;
+        padding: 10px;
+        height: 175px;
+        word-wrap: normal;
+    }
+
+    form {
+        background-color: rgba(194,219,189,255);
+        border: 5px solid rgba(97,130,109,255);
+        border-radius: 10px;
+        color: rgba(29,50,53,255);
+        align-items: center;
+        white-space: nowrap;
+        max-width: 750px;
+        margin: 0 auto;
+    }
+
+
+
+    label {
+        display: block;
+        margin-bottom: 8px;
+    }
+
+    input {
+        width: 100%;
+        padding: 8px;
+        margin-bottom: 16px;
+        box-sizing: border-box;
+    }
+
+    #btnView, #btnEdit {
+        background-color: rgba(97,130,109,255);
+        color: white;
+        padding: 5px 5px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+    h1 {
+        text-align: center;
+    }
+
+</style>
+
+<form method="post" class="form-group" id="myForm">
+@foreach (var Person in Model.Users)
+    {
+        <div id="Info" class="m-2">
+            <!-- Incase we have a user Image
+            <div class="col-4">
+               
+                <img src="" alt="Product Image" width="200" height="200" />
+            </div>
+            -->
+           <div class="col-4">
+                <div class="col-2">
+                    <label class="form-label" asp-for="@Person.FirstName">First Name: @Person.FirstName</label>
+                   
+       
+                </div>
+                <div class="col-2">
+                    <label class="form-label" asp-for="@Person.LastName">Last Name: @Person.LastName</label>
+                
+                </div>
+            
+            
+                <div class="col-2">
+                    <label class="form-label" asp-for="@Person.Email">Email: @Person.Email</label>
+               
+                </div>
+                <div class="col-3">
+                    <label class="form-label" asp-for="@Person.Phone">Phone: @Person.Phone</label>
+                
+                </div>
+                <div class="col-2">
+                    <label class="form-label" asp-for="@Person.LastLoginTime">Last Login Time: @Person.LastLoginTime</label>
+               
+                </div>
+
+           </div>
+
+            <div class="col-4">
+                <a asp-page="EditItem" asp-route-id="@Person.PersonId" id="btnEdit" class="btn btn-primary">Edit</a>
+            </div>
+            
+        </div>
+    }
+</form>
