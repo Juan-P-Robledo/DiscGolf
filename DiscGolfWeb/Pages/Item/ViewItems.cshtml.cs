@@ -21,10 +21,12 @@ namespace DiscGolfWeb.Pages.Item
        public void OnGet()
         {
             PopulateSpecificationDDL();
+          
         }
 
         public void OnPost() 
         {
+           
             PopulateItems(SelectedID);
             PopulateSpecificationDDL();
         }

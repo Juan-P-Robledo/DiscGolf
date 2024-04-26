@@ -20,17 +20,19 @@
     }
     Layout = layout;
 }
-<form method="post" class="form-group">
+<form method="post" class="form-group" id="myForm">
     <div class="row m-2">
         <div class="col-2">
             <label class="form-label">Category</label>
         </div>
         <div class="col-8">
-            <select asp-for="SelectedID" asp-items="Model.Categories"></select>
+            <select asp-for="SelectedID" asp-items="Model.Categories" onchange="submitForm()"></select>
         </div>
-        <div class="col-2">
+
+      <!--  <div class="col-2">
             <button class="btn btn-primary" id="btnView">Display</button>
         </div>
+        -->
     </div>
     @foreach (var Item in Model.DiscItems)
     {
@@ -150,3 +152,9 @@
 
     
 </style>
+
+<script>
+    function submitForm() {
+        document.getElementById('myForm').submit();
+    }
+</script>
