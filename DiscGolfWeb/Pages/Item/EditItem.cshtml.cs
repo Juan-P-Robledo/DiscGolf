@@ -25,25 +25,32 @@ namespace DiscGolfWeb.Pages.Item
         {
             if (ModelState.IsValid)
             {
-                using (SqlConnection conn = new SqlConnection(SecurityHelper.GetDBConnectionString()))
+                // Check if the request is for deletion
+                if (Request.Form["Delete"] == "true")
                 {
-                    string cmdText = "UPDATE Products SET Code=@ItemCode, Name=@ItemName, Description=@ItemDescription, Price=@ItemPrice, Brand=@ItemBrand, CategoryID=@ItemCategory, Image=@ItemImage WHERE ProductID=@itemId";
-                    SqlCommand cmd = new SqlCommand(cmdText, conn);
-                    cmd.Parameters.AddWithValue("@ItemCode", Item.ItemCode);
-                    cmd.Parameters.AddWithValue("@ItemName", Item.ItemName);
-                    cmd.Parameters.AddWithValue("@ItemDescription", Item.ItemDescription);
-                    cmd.Parameters.AddWithValue("@ItemPrice", Item.ItemPrice);
-                    cmd.Parameters.AddWithValue("@ItemBrand", Item.ItemBrand);
-                    cmd.Parameters.AddWithValue("@ItemCategory", Item.ItemCategory);
-                    cmd.Parameters.AddWithValue("@ItemImage", Item.ItemImage);
-                    cmd.Parameters.AddWithValue("@itemId", id);
-
-                    conn.Open();
-                    cmd.ExecuteNonQuery();
+                    // Call the method to delete the item
+                    DeleteItem(id);
                     return RedirectToPage("ViewItems");
+                }
+                else
+                {
+                    using (SqlConnection conn = new SqlConnection(SecurityHelper.GetDBConnectionString()))
+                    {
+                        string cmdText = "UPDATE Products SET Code=@ItemCode, Name=@ItemName, Description=@ItemDescription, Price=@ItemPrice, Brand=@ItemBrand, CategoryID=@ItemCategory, Image=@ItemImage WHERE ProductID=@itemId";
+                        SqlCommand cmd = new SqlCommand(cmdText, conn);
+                        cmd.Parameters.AddWithValue("@ItemCode", Item.ItemCode);
+                        cmd.Parameters.AddWithValue("@ItemName", Item.ItemName);
+                        cmd.Parameters.AddWithValue("@ItemDescription", Item.ItemDescription);
+                        cmd.Parameters.AddWithValue("@ItemPrice", Item.ItemPrice);
+                        cmd.Parameters.AddWithValue("@ItemBrand", Item.ItemBrand);
+                        cmd.Parameters.AddWithValue("@ItemCategory", Item.ItemCategory);
+                        cmd.Parameters.AddWithValue("@ItemImage", Item.ItemImage);
+                        cmd.Parameters.AddWithValue("@itemId", id);
 
-
-
+                        conn.Open();
+                        cmd.ExecuteNonQuery();
+                        return RedirectToPage("ViewItems");
+                    }
                 }
             }
             else
@@ -51,6 +58,19 @@ namespace DiscGolfWeb.Pages.Item
                 PopulateSpecificationsDDL();
                 return Page();
 
+            }
+        }
+
+        private void DeleteItem(int id)
+        {
+            using (SqlConnection conn = new SqlConnection(SecurityHelper.GetDBConnectionString()))
+            {
+                string cmdText = "DELETE FROM Products WHERE ProductID=@itemId";
+                SqlCommand cmd = new SqlCommand(cmdText, conn);
+                cmd.Parameters.AddWithValue("@itemId", id);
+
+                conn.Open();
+                cmd.ExecuteNonQuery();
             }
         }
 
