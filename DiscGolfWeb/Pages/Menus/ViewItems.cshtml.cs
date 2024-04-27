@@ -31,7 +31,7 @@ namespace DiscGolfWeb.Pages.Menus
         {
             using (SqlConnection conn = new SqlConnection(SecurityHelper.GetDBConnectionString()))
             {
-                string cmdText = "SELECT Code, Name, Description, Price, ProductID, Image, Brand, CategoryID FROM Products WHERE CategoryID=@CatID";
+                string cmdText = "SELECT Products.Code, Products.Name, Products.Description, Products.Price, Products.ProductID, Products.Image, Products.Brand, Category.CategoryName FROM Products JOIN Category ON Products.CategoryID = Category.CategoryID WHERE Products.CategoryID=@CatID";
                 SqlCommand cmd = new SqlCommand(cmdText, conn);
                 cmd.Parameters.AddWithValue("@CatID", id);
                 conn.Open();
@@ -48,7 +48,7 @@ namespace DiscGolfWeb.Pages.Menus
                         item.ItemID = reader.GetInt32(4);
                         item.ItemImage = reader.GetString(5);
                         item.ItemBrand = reader.GetString(6);
-                        item.ItemCategory = reader.GetInt32(7);
+                        item.itemCategory = reader.GetString(7);
                         DiscItems.Add(item);
                     }
                 }
