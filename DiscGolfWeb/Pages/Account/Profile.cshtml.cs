@@ -6,17 +6,19 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Data.SqlClient;
+using System.Data;
 using System.Security.Claims;
 
 
 namespace DiscGolfWeb.Pages.Account
 {
    [Authorize]
+    [BindProperties]
     public class ProfileModel : PageModel
     {
 
 
-        [BindProperty]
+        
         public Profile profile { get; set; } = new Profile();
         public void OnGet()
         {
@@ -30,7 +32,7 @@ namespace DiscGolfWeb.Pages.Account
             String email = HttpContext.User.FindFirstValue(ClaimTypes.Email);
             using (SqlConnection conn = new SqlConnection(SecurityHelper.GetDBConnectionString()))
             {
-                string cmdText = "SELECT FirstName, LastName, Phone, LastLoginTime FROM Users WHERE Email=@email";
+                string cmdText = "SELECT UserID, FirstName, LastName, Phone, LastLoginTime FROM Users WHERE Email=@email";
                 SqlCommand cmd = new SqlCommand(cmdText, conn);
                 cmd.Parameters.AddWithValue("@email", email);
                 conn.Open();
@@ -38,11 +40,12 @@ namespace DiscGolfWeb.Pages.Account
                 if(reader.HasRows)
                 {
                     reader.Read();
-                    profile.FirstName = reader.GetString(0);
-                    profile.LastName = reader.GetString(1);
+                    profile.PersonId = reader.GetInt32(0);
+                    profile.FirstName = reader.GetString(1);
+                    profile.LastName = reader.GetString(2);
                     profile.Email = email;
-                    profile.Phone = reader.GetString(2);
-                    profile.LastLoginTime = reader.GetDateTime(3);
+                    profile.Phone = reader.GetString(3);
+                    profile.LastLoginTime = reader.GetDateTime(4);
                    
                 }
             }
