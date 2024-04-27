@@ -113,6 +113,7 @@
                     <label class="form-label" asp-for="@Person.Email">Email: @Person.Email</label>
                
                 </div>
+                
                 <div class="col-3">
                     <label class="form-label" asp-for="@Person.Phone">Phone: @Person.Phone</label>
                 
@@ -125,7 +126,7 @@
            </div>
 
             <div class="col-4">
-                <a asp-page="EditItem" asp-route-id="@Person.PersonId" id="btnEdit" class="btn btn-primary">Edit</a>
+                <a asp-page="EditUsers" asp-route-id="@Person.PersonId" id="btnEdit" class="btn btn-primary">Edit</a>
             </div>
             
         </div>
