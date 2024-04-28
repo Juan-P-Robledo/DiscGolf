@@ -87,8 +87,8 @@
         position: relative; /* Ensure the container is positioned relative */
     }
 
-        .read-only-container:hover::after {
-            content: attr(title);
+    .read-only-container:hover::after {
+            /*content: attr(title); */
             background-color: rgba(97,130,109,255);
             color: white;
             padding: 5px;
@@ -99,7 +99,13 @@
             border-radius: 5px;
             white-space: nowrap;
             z-index: 1; /* Ensure the tooltip appears above other content */
-        }
+    }
+
+    .wrap-error {
+        display: block;
+        white-space: pre-wrap; /* Allow wrapping of long lines */
+    }
+
 
     h1 {
         text-align: center;
@@ -122,6 +128,7 @@
         </div>
         <div class="col-10">
             <input type="text" class="form-control" asp-for="Person.FirstName" />
+            <span asp-validation-for="Person.FirstName" class="text-danger"></span>
         </div>
 
     </div>
@@ -131,6 +138,7 @@
         </div>
         <div class="col-10">
             <input type="text" class="form-control" asp-for="Person.LastName" />
+            <span asp-validation-for="Person.LastName" class="text-danger"></span>
         </div>
 
     </div>
@@ -149,6 +157,7 @@
         </div>
         <div class="col-10">
             <input type="text" class="form-control" asp-for="Person.Password" />
+            <span asp-validation-for="Person.Password" class="text-danger wrap-error"></span>
         </div>
 
     </div>
