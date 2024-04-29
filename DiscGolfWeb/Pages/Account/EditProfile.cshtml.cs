@@ -7,11 +7,12 @@ using Microsoft.Data.SqlClient;
 
 namespace DiscGolfWeb.Pages.Account
 {
-    [Authorize(Policy = "AdminOnly")]
+    [Authorize]
     [BindProperties]
     public class EditProfileModel : PageModel
     {
         public Person Person { get; set; } = new Person();
+
         public void OnGet(int id)
         {
             PopulateUser(id);
@@ -25,7 +26,7 @@ namespace DiscGolfWeb.Pages.Account
             if (Request.Form["Delete"] == "true")
             {
                 // Call the method to delete the item
-                DeleteItem(id);
+                DeleteUser(id);
                 return RedirectToPage("ViewUsers");
             }
             else
@@ -59,7 +60,7 @@ namespace DiscGolfWeb.Pages.Account
             }
         }
 
-        private void DeleteItem(int id)
+        private void DeleteUser(int id)
         {
             using (SqlConnection conn = new SqlConnection(SecurityHelper.GetDBConnectionString()))
             {

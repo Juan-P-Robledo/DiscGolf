@@ -1,6 +1,5 @@
 
 using DiscGolfBusiness;
-
 using DiscGolfWeb.Model;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -12,13 +11,10 @@ using System.Security.Claims;
 
 namespace DiscGolfWeb.Pages.Account
 {
-   [Authorize]
+    [Authorize]
     [BindProperties]
     public class ProfileModel : PageModel
     {
-
-
-        
         public Profile profile { get; set; } = new Profile();
         public void OnGet()
         {
