@@ -12,6 +12,7 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
   {
       options.Cookie.Name = "MyDiscGolfCookie";
       options.LoginPath = "/Account/AccessDenied";
+      
   });
 
 builder.Services.AddAuthorization(options =>
