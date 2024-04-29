@@ -1,7 +1,6 @@
 ﻿@page
-@model IndexModel
+@model DiscGolfWeb.Pages.Account.ViewUsersModel
 @{
-    // Layout = HttpContext.User.Identity.IsAuthenticated ? "_LayoutAuthenticated" : "_Layout";
     string layout;
     if (HttpContext.User.Identity.IsAuthenticated)
     {
@@ -19,18 +18,7 @@
         layout = "_Layout"; // Use the default layout for unauthenticated users
     }
     Layout = layout;
-
-    ViewData["Title"] = "Home page";
-
 }
-
-<div class="text-center">
-    <h1 class="display-4">Welcome to Alien Disc Golf</h1>
-
-    <img src="https://cdn.shopify.com/s/files/1/0538/2455/3132/products/ufodisckmockup-modified_2048x2048.png?v=1651357323" alt="Disc Golf Logo" width="200" height="200">
-    <!--<p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p> -->
-</div>
-
 <style>
     body {
         background-image: url('https://i.pinimg.com/736x/91/b7/f5/91b7f5e0c42251f849fe21b0332877a8.jpg'); /* Specify 	the URL of your image */
@@ -52,7 +40,7 @@
         flex-wrap: wrap;
         border: 2px solid black;
         padding: 10px;
-        height: 350px;
+        height: 175px;
         word-wrap: normal;
     }
 
@@ -99,50 +87,48 @@
 
 </style>
 
-<form method="post" class="form-group">
-    @foreach (var Item in Model.DiscItems)
+<form method="post" class="form-group" id="myForm">
+@foreach (var Person in Model.Users)
     {
         <div id="Info" class="m-2">
+            <!-- Incase we have a user Image
             <div class="col-4">
-
-                <img src="@Item.ItemImage" alt="Product Image" width="200" height="200" />
+               
+                <img src="" alt="Product Image" width="200" height="200" />
             </div>
-            <div class="col-4">
+            -->
+           <div class="col-4">
                 <div class="col-2">
-                    <label class="form-label" asp-for="@Item.ItemName">Name: @Item.ItemName</label>
-
-
+                    <label class="form-label" asp-for="@Person.FirstName">First Name: @Person.FirstName</label>
+                   
+       
                 </div>
                 <div class="col-2">
-                    <label class="form-label" asp-for="@Item.ItemCode">Item Code: @Item.ItemCode</label>
-
+                    <label class="form-label" asp-for="@Person.LastName">Last Name: @Person.LastName</label>
+                
                 </div>
-
-
+            
+            
                 <div class="col-2">
-                    <label class="form-label" asp-for="@Item.ItemBrand">Brand: @Item.ItemBrand</label>
-
+                    <label class="form-label" asp-for="@Person.Email">Email: @Person.Email</label>
+               
                 </div>
+                
                 <div class="col-3">
-                    <label class="form-label" asp-for="@Item.ItemCategory">Category: @Item.itemCategory</label>
-
+                    <label class="form-label" asp-for="@Person.Phone">Phone: @Person.Phone</label>
+                
                 </div>
                 <div class="col-2">
-                    <label class="form-label" asp-for="@Item.ItemPrice">Price: $@Item.ItemPrice</label>
-
+                    <label class="form-label" asp-for="@Person.LastLoginTime">Last Login Time: @Person.LastLoginTime</label>
+               
                 </div>
 
-            </div>
+           </div>
 
             <div class="col-4">
-                <a asp-page="EditItem" asp-route-id="@Item.ItemID" id="btnEdit" class="btn btn-primary">Buy Item</a>
+                <a asp-page="EditUsers" asp-route-id="@Person.PersonId" id="btnEdit" class="btn btn-primary">Edit</a>
             </div>
-
-            <div class="col-5">
-                <label class="form-label" asp-for="@Item.ItemDescription">Description:</label>
-                <label class="form-label">@Item.ItemDescription</label>
-            </div>
-
+            
         </div>
     }
 </form>

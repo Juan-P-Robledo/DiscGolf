@@ -24,7 +24,7 @@
         color: rgba(29,50,53,255);
         align-items: center;
         white-space: nowrap;
-        max-width: 750px;
+        max-width: 550px;
         margin: 0 auto;
     }
 
@@ -51,6 +51,12 @@
         border-radius: 4px;
         cursor: pointer;
     }
+
+    .wrap-error {
+        display: block;
+        white-space: pre-wrap; /* Allow wrapping of long lines */
+    }
+
 
     h1 {
         text-align: center;
@@ -99,7 +105,7 @@
         </div>
         <div class="col-10">
             <input asp-for="NewPerson.Password" type="password" class="form-control" />
-            <span asp-validation-for="NewPerson.Password" class="text-danger"></span>
+            <span asp-validation-for="NewPerson.Password" class="text-danger wrap-error"></span>
         </div>
      </div>
      <div class="row m-2">
@@ -107,7 +113,7 @@
             <label asp-for="NewPerson.Phone" class="form-label"></label>
         </div>
         <div class="col-10">
-            <input asp-for="NewPerson.Phone" type="text" class="form-control" />
+            <input asp-for="NewPerson.Phone" type="text" class="form-control" value="None" />
             
         </div>
     </div>

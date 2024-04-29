@@ -1,0 +1,203 @@
+﻿@page
+@model DiscGolfWeb.Pages.Account.EditUsersModel
+@{
+    string layout;
+    if (HttpContext.User.Identity.IsAuthenticated)
+    {
+        if (HttpContext.User.HasClaim("isAdmin", "True"))
+        {
+            layout = "_AdminLayout"; // Use the admin layout for users with admin privilege
+        }
+        else
+        {
+            layout = "_LayoutAuthenticated"; // Use the regular authenticated layout
+        }
+    }
+    else
+    {
+        layout = "_Layout"; // Use the default layout for unauthenticated users
+    }
+    Layout = layout;
+}
+<style>
+    body {
+        background-image: url('https://i.pinimg.com/736x/91/b7/f5/91b7f5e0c42251f849fe21b0332877a8.jpg'); /* Specify 	the URL of your image */
+
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
+        color: white;
+        font-family: Arial, sans-serif;
+        margin: 0;
+        display: flex;
+        height: 100vh;
+        flex-direction: column;
+        background-color: #020F15;
+    }
+
+
+    form {
+        background-color: rgba(194,219,189,255);
+        border: 5px solid rgba(97,130,109,255);
+        border-radius: 10px;
+        color: rgba(29,50,53,255);
+        align-items: center;
+        white-space: nowrap;
+        max-width: 550px;
+        margin: 0 auto;
+    }
+
+    label {
+        display: block;
+        margin-bottom: 8px;
+    }
+
+    input {
+        width: 100%;
+        padding: 8px;
+        margin-bottom: 16px;
+        box-sizing: border-box;
+    }
+
+    #btnUpdate, #returnBtn {
+        background-color: rgba(97,130,109,255);
+        color: white;
+        padding: 5px 5px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+    #btnDelete {
+        background-color: red;
+        color: white;
+        padding: 5px 5px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+    .read-only-container {
+        position: relative; /* Ensure the container is positioned relative */
+    }
+
+    .read-only-container:hover::after {
+            /*content: attr(title); */
+            background-color: rgba(97,130,109,255);
+            color: white;
+            padding: 5px;
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 5px;
+            white-space: nowrap;
+            z-index: 1; /* Ensure the tooltip appears above other content */
+    }
+
+    .wrap-error {
+        display: block;
+        white-space: pre-wrap; /* Allow wrapping of long lines */
+    }
+
+
+    h1 {
+        text-align: center;
+    }
+
+    .image-container {
+        text-align: center; /* Center align its contents horizontally */
+    }
+
+</style>
+<form method="post" class="form-group" id="formID">
+    <div class="row m-2">
+        <div class="col-2">
+            <h1> Edit Profile</h1>
+        </div>
+    </div>
+    <div class="row m-2">
+        <div class="col-2">
+            <label asp-for="Person.FirstName"></label>
+        </div>
+        <div class="col-10">
+            <input type="text" class="form-control" asp-for="Person.FirstName" />
+            <span asp-validation-for="Person.FirstName" class="text-danger"></span>
+        </div>
+
+    </div>
+    <div class="row m-2">
+        <div class="col-2">
+            <label asp-for="Person.LastName"></label>
+        </div>
+        <div class="col-10">
+            <input type="text" class="form-control" asp-for="Person.LastName" />
+            <span asp-validation-for="Person.LastName" class="text-danger"></span>
+        </div>
+
+    </div>
+    <div class="row m-2">
+        <div class="col-2">
+            <label asp-for="Person.Email"></label>
+        </div>
+        <div class="col-10 read-only-container" title="This field is read-only">
+            <input type="text" class="form-control" asp-for="Person.Email" readonly/>
+        </div>
+
+    </div>
+    <div class="row m-2">
+        <div class="col-2">
+            <label asp-for="Person.Password"></label>
+        </div>
+        <div class="col-10">
+            <input type="text" class="form-control" asp-for="Person.Password" />
+            <span asp-validation-for="Person.Password" class="text-danger wrap-error"></span>
+        </div>
+
+    </div>
+    <div class="row m-2">
+        <div class="col-2">
+            <label asp-for="Person.Phone">Phone</label>
+        </div>
+        <div class="col-10">
+            <input type="text" class="form-control" asp-for="Person.Phone" />
+        </div>
+
+    </div>
+    
+    <div class="row m-2">
+        <div class="col-2">
+            <input type="submit" value="Update" id="btnUpdate" class="btn btn-primary" />
+        </div>
+        <div class="col-2">
+            <input type="submit" value="Delete" id="btnDelete" class="btn btn-danger" />
+        </div>
+        <div class="col-2">
+            <a asp-page="Profile" asp-route-id="@Model.Person.PersonId" id="returnBtn" class="btn btn-primary">Back to Profile</a>
+        </div>
+
+        <input type="hidden" name="Delete" id="Delete" value="false" />
+    </div>
+
+
+</form>
+
+
+<script>
+    document.getElementById('btnDelete').addEventListener('click', function () {
+        // Show confirmation dialog
+        var confirmDelete = confirm("Are you sure you want to delete? (WARNING: Once deleted this User can't be recovered)");
+
+        // If user confirms, perform deletion
+        if (confirmDelete) {
+            document.getElementById("Delete").value = "true";
+            document.getElementById("formID").submit();
+        }
+    });
+</script>
