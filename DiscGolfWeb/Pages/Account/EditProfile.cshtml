@@ -117,6 +117,7 @@
 
 </style>
 <form method="post" class="form-group" id="formID">
+    <div asp-validation-summary="All" class="text-danger wrap-error"></div>
     <div class="row m-2">
         <div class="col-2">
             <h1> Edit Profile</h1>
@@ -153,13 +154,22 @@
     </div>
     <div class="row m-2">
         <div class="col-2">
-            <label asp-for="Person.Password"></label>
+            <label class="wrap-error" asp-for="Person.Password">New Password </label>
         </div>
         <div class="col-10">
-            <input type="text" class="form-control" asp-for="Person.Password" />
+            <input type="password" class="form-control" asp-for="Person.Password" />
             <span asp-validation-for="Person.Password" class="text-danger wrap-error"></span>
         </div>
 
+    </div>
+    <div class="row m-2">
+        <div class="col-2">
+            <label class="wrap-error" asp-for="Person.Password">Confirm Password </label>
+        </div>
+        <div class="col-10">
+            <input type="password" class="form-control" id="confirmPassword" name="ConfirmPassword" />
+           
+        </div>
     </div>
     <div class="row m-2">
         <div class="col-2">

@@ -1,9 +1,9 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace DiscGolfWeb.Pages.Tutorials
+namespace DiscGolfWeb.Pages.Account
 {
-    public class TutorialsModel : PageModel
+    public class CartModel : PageModel
     {
         public void OnGet()
         {

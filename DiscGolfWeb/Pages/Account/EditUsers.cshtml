@@ -59,7 +59,7 @@
         box-sizing: border-box;
     }
 
-    #btnUpdate {
+    #btnUpdate, #returnBtn {
         background-color: rgba(97,130,109,255);
         color: white;
         padding: 5px 5px;
@@ -81,6 +81,11 @@
         border: none;
         border-radius: 4px;
         cursor: pointer;
+    }
+
+    .wrap-error {
+        display: block;
+        white-space: pre-wrap; /* Allow wrapping of long lines */
     }
 
     h1 {
@@ -127,10 +132,10 @@
     </div>
     <div class="row m-2">
         <div class="col-2">
-            <label asp-for="Person.Password"></label>
+            <label class="wrap-error" asp-for="Person.Password">New Password </label>
         </div>
         <div class="col-10">
-            <input type="text" class="form-control" asp-for="Person.Password" />
+            <input type="password" class="form-control" asp-for="Person.Password" />
         </div>
 
     </div>
@@ -151,7 +156,9 @@
         <div class="col-2">
             <input type="submit" value="Delete" id="btnDelete" class="btn btn-danger" />
         </div>
-
+        <div class="col-2">
+            <a asp-page="ViewUsers" id="returnBtn" class="btn btn-primary">Back to View Users</a>
+        </div>
         <input type="hidden" name="Delete" id="Delete" value="false" />
     </div>
 
