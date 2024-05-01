@@ -31,6 +31,52 @@
     <!--<p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p> -->
 </div>
 
+<form method="post" class="form-group">
+    <div class="container" id="Items">
+        <div class="col-12" id="filterBar">
+            Search/Filter Bar
+        </div>
+
+        <div class="col-12">
+            <div class="row">
+                @foreach (var Item in Model.DiscItems)
+                {
+                    <div class="col-4" id="item">
+                        <img src="@Item.ItemImage" alt="Product Image" width="200" height="200" />
+                        <div class="row">
+                            <div class="col-6">
+                                <label class="form-label" asp-for="@Item.ItemName">Name: @Item.ItemName</label>
+                            </div>
+                            <div class="col-6">
+                                <label class="form-label" asp-for="@Item.ItemPrice">Price: @Item.ItemPrice.ToString("c")</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6">
+                                <label class="form-label" asp-for="@Item.ItemBrand">Brand: @Item.ItemBrand</label>
+                            </div>
+                            <div class="col-6">
+                                <label class="form-label" asp-for="@Item.ItemCategory">Category: @Item.itemCategory</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-8">
+                                <label class="form-label" asp-for="@Item.ItemDescription">Description:</label>
+                                <label class="form-label">@Item.ItemDescription</label>
+                            </div>
+
+                            <div class="col-4">
+                                <a asp-page="EditItem" asp-route-id="@Item.ItemID" id="btnBuy" class="btn btn-primary">Buy Item</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                }
+            </div>
+        </div>
+    </div>
+</form>
+
 <style>
     body {
         background-image: url('https://i.pinimg.com/736x/91/b7/f5/91b7f5e0c42251f849fe21b0332877a8.jpg'); /* Specify 	the URL of your image */
@@ -81,7 +127,7 @@
         box-sizing: border-box;
     }
 
-    #btnView, #btnEdit {
+    #btnBuy {
         background-color: rgba(97,130,109,255);
         color: white;
         padding: 5px 5px;
@@ -97,52 +143,32 @@
         text-align: center;
     }
 
-</style>
-
-<form method="post" class="form-group">
-    @foreach (var Item in Model.DiscItems)
-    {
-        <div id="Info" class="m-2">
-            <div class="col-4">
-
-                <img src="@Item.ItemImage" alt="Product Image" width="200" height="200" />
-            </div>
-            <div class="col-4">
-                <div class="col-2">
-                    <label class="form-label" asp-for="@Item.ItemName">Name: @Item.ItemName</label>
-
-
-                </div>
-                <div class="col-2">
-                    <label class="form-label" asp-for="@Item.ItemCode">Item Code: @Item.ItemCode</label>
-
-                </div>
-
-
-                <div class="col-2">
-                    <label class="form-label" asp-for="@Item.ItemBrand">Brand: @Item.ItemBrand</label>
-
-                </div>
-                <div class="col-3">
-                    <label class="form-label" asp-for="@Item.ItemCategory">Category: @Item.itemCategory</label>
-
-                </div>
-                <div class="col-2">
-                    <label class="form-label" asp-for="@Item.ItemPrice">Price: @Item.ItemPrice.ToString("c")</label>
-
-                </div>
-
-            </div>
-
-            <div class="col-4">
-                <a asp-page="EditItem" asp-route-id="@Item.ItemID" id="btnEdit" class="btn btn-primary">Buy Item</a>
-            </div>
-
-            <div class="col-5">
-                <label class="form-label" asp-for="@Item.ItemDescription">Description:</label>
-                <label class="form-label">@Item.ItemDescription</label>
-            </div>
-
-        </div>
+    #filterBar {
+        background-color: rgba(194,219,189,255);
+        border: 2px solid black;
+        border-radius: 10px;
+        align-content: center;
+        margin: 10px auto;
     }
-</form>
+
+    #Items {
+        background-color: rgba(194,219,189,255);
+        border: 2px solid black;
+        border-radius: 10px;
+        color: rgba(29,50,53,255);
+        padding: 25px;
+        max-width: 1500px;
+        margin: 50px auto;
+    }
+
+    #item {
+        background-color: rgba(194,219,189,255);
+        border: 2px solid black;
+        border-radius: 10px;
+        align-items: center;
+        color: rgba(29,50,53,255);
+        max-width: 400px;
+        margin: 5px auto;
+    }
+
+</style>
