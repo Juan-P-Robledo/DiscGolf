@@ -33,7 +33,11 @@ namespace DiscGolfWeb.Pages
 
         public void OnGet()
         {
-            PopulateUser();
+            if(User.Identity.IsAuthenticated)
+            {
+                PopulateUser();
+            }
+           
             PopulateItems(SelectedID, SelectedFilterID);
             PopulateFilterDDL();
             PopulateSpecificationDDL();
@@ -193,6 +197,7 @@ namespace DiscGolfWeb.Pages
         }
         private void PopulateUser()
         {
+
             string email = HttpContext.User.FindFirstValue(ClaimTypes.Email);
             using (SqlConnection conn = new SqlConnection(SecurityHelper.GetDBConnectionString()))
             {
