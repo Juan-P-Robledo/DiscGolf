@@ -139,7 +139,8 @@
                 </div>
             </div>
             <div class="col-4">
-                <button asp-route-id="@Item.ItemID" id="btnBuy" class="btn btn-primary">Buy Item <i class="bi bi-bag"></i></button>
+                    <input type="hidden" name="userId" value="@Model.Person.PersonId" />
+                <button id="btnBuy" type="submit" asp-page-handler="AddToCart" asp-route-itemId="@Item.ItemID" class="btn btn-primary" onclick="showAddedToCartMessage()">Add to Cart<i class="bi bi-bag"></i></button>
             </div>
             <div class="col-5">
                 <label class="form-label" asp-for="@Item.ItemDescription">Description:</label>
@@ -152,5 +153,8 @@
 <script>
     function submitForm() {
         document.getElementById('myForm').submit();
+    }
+    function showAddedToCartMessage() {
+        alert("Added to Cart");
     }
 </script>
