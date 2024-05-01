@@ -128,6 +128,11 @@ namespace DiscGolfWeb.Pages
 
             
         }
+
+        private void AddItemToCart(int UserID, int ItemID)
+        {
+
+        }
         private void PopulateFilterDDL()
         {
 
