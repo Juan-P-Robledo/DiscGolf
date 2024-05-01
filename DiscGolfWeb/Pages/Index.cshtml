@@ -91,6 +91,7 @@
         cursor: pointer;
     }
 
+
     h1 {
         text-align: center;
     }
@@ -124,14 +125,11 @@
                 <img src="@Item.ItemImage" alt="Product Image" width="200" height="200" />
             </div>
             <div class="col-4">
-                <div class="col-2">
-                    <label class="form-label" asp-for="@Item.ItemName">Name: @Item.ItemName</label>
+                <div class="col-2" >
+                    <label style="font-size: 24px;" class="form-label" asp-for="@Item.ItemName">@Item.ItemName</label>
                 </div>
                 <div class="col-2">
-                    <label class="form-label" asp-for="@Item.ItemCode">Item Code: @Item.ItemCode</label>
-                </div>
-                <div class="col-2">
-                    <label class="form-label" asp-for="@Item.ItemBrand">Brand: @Item.ItemBrand</label>
+                    <label class="form-label" asp-for="@Item.ItemBrand">Manufactured by @Item.ItemBrand</label>
                 </div>
                 <div class="col-3">
                     <label class="form-label" asp-for="@Item.ItemCategory">Category: @Item.itemCategory</label>

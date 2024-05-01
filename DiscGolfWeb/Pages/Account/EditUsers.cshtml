@@ -59,7 +59,7 @@
         box-sizing: border-box;
     }
 
-    #btnUpdate {
+    #btnUpdate, #returnBtn {
         background-color: rgba(97,130,109,255);
         color: white;
         padding: 5px 5px;
@@ -151,7 +151,9 @@
         <div class="col-2">
             <input type="submit" value="Delete" id="btnDelete" class="btn btn-danger" />
         </div>
-
+        <div class="col-2">
+            <a asp-page="ViewUsers" id="returnBtn" class="btn btn-primary">Back to View Users</a>
+        </div>
         <input type="hidden" name="Delete" id="Delete" value="false" />
     </div>
 

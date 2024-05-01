@@ -46,9 +46,9 @@ namespace DiscGolfWeb.Pages
 
         private void PopulateItems(int catID, int filID)
         {
-            
-                if (catID > 1)
-                {
+
+            if (catID > 1)
+            {
                 using (SqlConnection conn = new SqlConnection(SecurityHelper.GetDBConnectionString()))
                 {
                     string cmdText = "SELECT Products.Code, Products.Name, Products.Description, Products.Price, Products.ProductID, Products.Image, Products.Brand, Category.CategoryName FROM Products JOIN Category ON Products.CategoryID = Category.CategoryID WHERE Products.CategoryID=@CatID";
@@ -74,14 +74,15 @@ namespace DiscGolfWeb.Pages
                         }
                     }
                 }
-                } else
+            }
+            else
+            {
+                using (SqlConnection conn = new SqlConnection(SecurityHelper.GetDBConnectionString()))
                 {
-                    using (SqlConnection conn = new SqlConnection(SecurityHelper.GetDBConnectionString()))
-                    {
-                        string cmdText = "SELECT Products.Code, Products.Name, Products.Description, Products.Price, Products.ProductID, Products.Image, Products.Brand, Category.CategoryName FROM Products JOIN Category ON Products.CategoryID = Category.CategoryID";
-                        SqlCommand cmd = new SqlCommand(cmdText, conn);
-                        conn.Open();
-                        SqlDataReader reader = cmd.ExecuteReader();
+                    string cmdText = "SELECT Products.Code, Products.Name, Products.Description, Products.Price, Products.ProductID, Products.Image, Products.Brand, Category.CategoryName FROM Products JOIN Category ON Products.CategoryID = Category.CategoryID";
+                    SqlCommand cmd = new SqlCommand(cmdText, conn);
+                    conn.Open();
+                    SqlDataReader reader = cmd.ExecuteReader();
                     if (reader.HasRows)
                     {
                         while (reader.Read())
@@ -98,7 +99,8 @@ namespace DiscGolfWeb.Pages
                             DiscItems.Add(item);
                         }
                     }
-                    }
+                }
+            }
                 if(filID == 1)
                 {
                     DiscItems = DiscItems.ToList();
@@ -124,7 +126,7 @@ namespace DiscGolfWeb.Pages
 
                 }
 
-            }
+            
         }
         private void PopulateFilterDDL()
         {
