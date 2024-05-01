@@ -1,9 +1,9 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace DiscGolfWeb.Pages.Tutorials
+namespace DiscGolfWeb.Pages.Item
 {
-    public class BeginnerModel : PageModel
+    public class CollectionModel : PageModel
     {
         public void OnGet()
         {

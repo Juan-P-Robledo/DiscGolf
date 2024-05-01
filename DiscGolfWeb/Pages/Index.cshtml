@@ -79,7 +79,7 @@
         box-sizing: border-box;
     }
 
-    #btnView, #btnEdit {
+    #btnView, #btnBuy {
         background-color: rgba(97,130,109,255);
         color: white;
         padding: 5px 5px;
@@ -139,7 +139,7 @@
                 </div>
             </div>
             <div class="col-4">
-                <a asp-page="EditItem" asp-route-id="@Item.ItemID" id="btnEdit" class="btn btn-primary">Buy Item</a>
+                <a asp-page="EditItem" asp-route-id="@Item.ItemID" id="btnBuy" class="btn btn-primary">Buy Item <i class="bi bi-bag"></i></a>
             </div>
             <div class="col-5">
                 <label class="form-label" asp-for="@Item.ItemDescription">Description:</label>
