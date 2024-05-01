@@ -67,8 +67,6 @@
         margin: 0 auto;
     }
 
-
-
     label {
         display: block;
         margin-bottom: 8px;
@@ -99,50 +97,62 @@
 
 </style>
 
-<form method="post" class="form-group">
+<form method="post" class="form-group" id="myForm">
+    <div class="row m-2">
+        <div class="col-2">
+            <label class="form-label">Category</label>
+        </div>
+        <div class="col-3">
+            <select asp-for="SelectedID" asp-items="Model.Categories" onchange="submitForm()"></select>
+        </div>
+
+        <div class="col-2">
+            <label class="form-label">Filter</label>
+        </div>
+        <div class="col-3">
+            <select asp-for="SelectedFilterID" asp-items="Model.Filters" onchange="submitForm()"></select>
+        </div>
+
+       
+    </div>
+
+    
     @foreach (var Item in Model.DiscItems)
     {
         <div id="Info" class="m-2">
             <div class="col-4">
-
                 <img src="@Item.ItemImage" alt="Product Image" width="200" height="200" />
             </div>
             <div class="col-4">
                 <div class="col-2">
                     <label class="form-label" asp-for="@Item.ItemName">Name: @Item.ItemName</label>
-
-
                 </div>
                 <div class="col-2">
                     <label class="form-label" asp-for="@Item.ItemCode">Item Code: @Item.ItemCode</label>
-
                 </div>
-
-
                 <div class="col-2">
                     <label class="form-label" asp-for="@Item.ItemBrand">Brand: @Item.ItemBrand</label>
-
                 </div>
                 <div class="col-3">
                     <label class="form-label" asp-for="@Item.ItemCategory">Category: @Item.itemCategory</label>
-
                 </div>
                 <div class="col-2">
                     <label class="form-label" asp-for="@Item.ItemPrice">Price: @Item.ItemPrice.ToString("c")</label>
-
                 </div>
-
             </div>
-
             <div class="col-4">
                 <a asp-page="EditItem" asp-route-id="@Item.ItemID" id="btnEdit" class="btn btn-primary">Buy Item</a>
             </div>
-
             <div class="col-5">
                 <label class="form-label" asp-for="@Item.ItemDescription">Description:</label>
                 <label class="form-label">@Item.ItemDescription</label>
             </div>
-
         </div>
     }
 </form>
+
+<script>
+    function submitForm() {
+        document.getElementById('myForm').submit();
+    }
+</script>
