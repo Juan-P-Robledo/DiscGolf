@@ -31,11 +31,25 @@
     <!--<p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p> -->
 </div>
 
-<form method="post" class="form-group">
-    <div class="container" id="Items">
-        <div class="col-12" id="filterBar">
-            Search/Filter Bar
+<form method="post" class="form-group" id="myForm">
+   <div class="row m-2">
+        <div class="col-2">
+            <label class="form-label">Category</label>
         </div>
+        <div class="col-3">
+            <select asp-for="SelectedID" asp-items="Model.Categories" onchange="submitForm()"></select>
+        </div>
+
+        <div class="col-2">
+            <label class="form-label">Filter</label>
+        </div>
+        <div class="col-3">
+            <select asp-for="SelectedFilterID" asp-items="Model.Filters" onchange="submitForm()"></select>
+        </div>
+
+       
+    </div>
+
 
         <div class="col-12">
             <div class="row">
@@ -117,8 +131,6 @@
         margin: 0 auto;
     }
 
-
-
     label {
         display: block;
         margin-bottom: 8px;
@@ -147,32 +159,10 @@
         text-align: center;
     }
 
-    #filterBar {
-        background-color: rgba(194,219,189,255);
-        border: 2px solid black;
-        border-radius: 10px;
-        align-content: center;
-        margin: 10px auto;
-    }
-
-    #Items {
-        background-color: rgba(194,219,189,255);
-        border: 2px solid black;
-        border-radius: 10px;
-        color: rgba(29,50,53,255);
-        padding: 25px;
-        max-width: 1500px;
-        margin: 50px auto;
-    }
-
-    #item {
-        background-color: rgba(194,219,189,255);
-        border: 2px solid black;
-        border-radius: 10px;
-        align-items: center;
-        color: rgba(29,50,53,255);
-        max-width: 400px;
-        margin: 5px auto;
-    }
 
 </style>
+<script>
+    function submitForm() {
+        document.getElementById('myForm').submit();
+    }
+</script>
