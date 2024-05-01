@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Data.SqlClient;
+using static System.Runtime.InteropServices.JavaScript.JSType;
+using System.Security.Claims;
 
 namespace DiscGolfWeb.Pages
 {
@@ -22,13 +24,16 @@ namespace DiscGolfWeb.Pages
 
         public List<Items> DiscItems { get; set; } = new List<Items>();
 
-         public int SelectedID { get; set; }
+        public Person Person { get; set; } = new Person();
+
+        public int SelectedID { get; set; }
 
         public int SelectedFilterID { get; set; }
 
 
         public void OnGet()
         {
+            PopulateUser();
             PopulateItems(SelectedID, SelectedFilterID);
             PopulateFilterDDL();
             PopulateSpecificationDDL();
@@ -129,9 +134,20 @@ namespace DiscGolfWeb.Pages
             
         }
 
-        private void AddItemToCart(int UserID, int ItemID)
+        public IActionResult OnPostAddToCart(int itemId, int userId)
         {
-
+           
+                using (SqlConnection conn = new SqlConnection(SecurityHelper.GetDBConnectionString()))
+                {
+                    string cmdText = "INSERT INTO Cart(ProductID, UserID) VALUES (@itemID, @userID)";
+                    SqlCommand cmd = new SqlCommand(cmdText, conn);
+                    cmd.Parameters.AddWithValue("@itemID", itemId);
+                    cmd.Parameters.AddWithValue("@userID", userId);
+                    conn.Open();
+                    cmd.ExecuteNonQuery();
+                    return RedirectToPage("/Index");
+                }
+            
         }
         private void PopulateFilterDDL()
         {
@@ -175,7 +191,29 @@ namespace DiscGolfWeb.Pages
                 }
             }
         }
+        private void PopulateUser()
+        {
+            string email = HttpContext.User.FindFirstValue(ClaimTypes.Email);
+            using (SqlConnection conn = new SqlConnection(SecurityHelper.GetDBConnectionString()))
+            {
+                string cmdText = "SELECT UserID, FirstName, LastName, Phone, LastLoginTime FROM Users WHERE Email=@email";
+                SqlCommand cmd = new SqlCommand(cmdText, conn);
+                cmd.Parameters.AddWithValue("@email", email);
+                conn.Open();
+                SqlDataReader reader = cmd.ExecuteReader();
+                if (reader.HasRows)
+                {
+                    reader.Read();
+                    Person.PersonId = reader.GetInt32(0);
+                    Person.FirstName = reader.GetString(1);
+                    Person.LastName = reader.GetString(2);
+                    Person.Email = email;
+                    Person.Phone = reader.GetString(3);
+                    Person.LastLoginTime = reader.GetDateTime(4);
 
+                }
+            }
+        }
 
     }
 }
