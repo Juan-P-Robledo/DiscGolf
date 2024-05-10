@@ -34,23 +34,19 @@ namespace DiscGolfWeb.Pages.Account
             }
             else
             {
+                ModelState.Remove("Person.Password");
                 if (ModelState.IsValid)
                 {
-                    
-                    string confirmPassword = Request.Form["ConfirmPassword"];
-
-                    
-                    if (ValidateCredentials(confirmPassword))
-                    {
-                        using (SqlConnection conn = new SqlConnection(SecurityHelper.GetDBConnectionString()))
+                   
+                    using (SqlConnection conn = new SqlConnection(SecurityHelper.GetDBConnectionString()))
                         {
-                            string cmdText = "UPDATE Users SET FirstName=@FirstName, LastName=@LastName, Phone=@Phone, Email=@Email, Password=@Password WHERE UserID=@userId";
+                            string cmdText = "UPDATE Users SET FirstName=@FirstName, LastName=@LastName, Phone=@Phone, Email=@Email WHERE UserID=@userId";
                             SqlCommand cmd = new SqlCommand(cmdText, conn);
                             cmd.Parameters.AddWithValue("@FirstName", Person.FirstName);
                             cmd.Parameters.AddWithValue("@LastName", Person.LastName);
                             cmd.Parameters.AddWithValue("@Phone", Person.Phone);
                             cmd.Parameters.AddWithValue("@Email", Person.Email);
-                            cmd.Parameters.AddWithValue("@Password", SecurityHelper.GeneratedPasswordHash(Person.Password));
+                            
                             cmd.Parameters.AddWithValue("@userId", id);
 
 
@@ -58,14 +54,8 @@ namespace DiscGolfWeb.Pages.Account
                             cmd.ExecuteNonQuery();
                             return RedirectToPage("Profile");
                         }
-                    }
-                    else
-                    {
-                        ModelState.AddModelError("ConfirmPassword", "The confirm password does not match the current password.");
-                        return Page();
-                    }
-                    
-                    
+                   
+              
                 }
                 else
                 {
@@ -73,93 +63,6 @@ namespace DiscGolfWeb.Pages.Account
                     return Page();
 
                 }
-            }
-        }
-
-        private IActionResult ProcessChangePassword()
-        {
-
-            using (SqlConnection conn = new SqlConnection(SecurityHelper.GetDBConnectionString()))
-            {
-
-                string cmdText = "SELECT Password FROM Users WHERE Email=@email";
-                SqlCommand cmd = new SqlCommand(cmdText, conn);
-                cmd.Parameters.AddWithValue("@email", Person.Email);
-                conn.Open();
-                SqlDataReader reader = cmd.ExecuteReader();
-                if (reader.HasRows)
-                {
-                    reader.Read();
-                    if (!reader.IsDBNull(0))
-                    {
-                        string passwordHash = reader.GetString(0);
-                        if (SecurityHelper.VerifyPassword(Person.Password, passwordHash))
-                        {
-                            return RedirectToPage("/Index");
-                        }
-                        else
-                        {
-                            ModelState.AddModelError("LoginError", "Invalid credentials. Try Again");
-                            return Page();
-                        }
-                    }
-                    else
-                    {
-                        ModelState.AddModelError("LoginError", "Invalid credentials. Try Again");
-                        return Page();
-                    }
-
-                }
-                else
-                {
-                    ModelState.AddModelError("LoginError", "Invalid credentials. Try Again");
-                    return Page();
-                }
-            }
-
-        }
-        private bool ValidateCredentials(string ConfirmPassword)
-        {
-            using (SqlConnection conn = new SqlConnection(SecurityHelper.GetDBConnectionString()))
-            {
-
-
-                //  string cmdText = "SELECT Password FROM Users WHERE Email=@email";
-                string cmdText = "SELECT Password, UserID, FirstName, isAdmin FROM Users WHERE Email=@email";
-
-                SqlCommand cmd = new SqlCommand(cmdText, conn);
-
-                cmd.Parameters.AddWithValue("@email", Person.Email);
-                conn.Open();
-                SqlDataReader reader = cmd.ExecuteReader();
-
-                if (reader.HasRows)
-                {
-                    reader.Read();
-                    if (reader.IsDBNull(0))
-                    {
-                        return false;
-                    }
-                    else
-                    {
-                        string passwordHash = reader.GetString(0);
-                        if (SecurityHelper.VerifyPassword(ConfirmPassword, passwordHash))
-                        {
-                            return true;
-                        }
-                        else
-                        {
-                            return false;
-                        }
-                    }
-
-
-                }
-                else
-                {
-                    return false;
-                }
-
             }
         }
 

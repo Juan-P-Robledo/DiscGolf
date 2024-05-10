@@ -64,7 +64,10 @@
     </div>
     <div class="row m-2">
         <div class="col-4">
-            <a asp-page="EditProfile" asp-route-id="@Model.profile.PersonId" id="btnEdit" class="btn btn-primary">Edit</a>
+            <a asp-page="EditProfile" asp-route-id="@Model.profile.PersonId" id="btnEdit" class="btn btn-primary">Edit Profile</a>
+        </div>
+        <div class="col-4">
+            <a asp-page="EditPassword" asp-route-id="@Model.profile.PersonId" id="btnEdit" class="btn btn-primary">Change Password</a>
         </div>
     </div>
 </form>
