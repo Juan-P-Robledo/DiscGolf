@@ -25,22 +25,22 @@ namespace DiscGolfWeb.Pages.Account
             if (Request.Form["Delete"] == "true")
             {
                 // Call the method to delete the item
-                DeleteItem(id);
+                DeleteUser(id);
                 return RedirectToPage("ViewUsers");
             }
             else
             {
+                ModelState.Remove("Person.Password");
                 if (ModelState.IsValid)
                 {
                         using (SqlConnection conn = new SqlConnection(SecurityHelper.GetDBConnectionString()))
                         {
-                            string cmdText = "UPDATE Users SET FirstName=@FirstName, LastName=@LastName, Phone=@Phone, Email=@Email, Password=@Password WHERE UserID=@userId";
+                            string cmdText = "UPDATE Users SET FirstName=@FirstName, LastName=@LastName, Phone=@Phone, Email=@Email WHERE UserID=@userId";
                             SqlCommand cmd = new SqlCommand(cmdText, conn);
                             cmd.Parameters.AddWithValue("@FirstName", Person.FirstName);
                             cmd.Parameters.AddWithValue("@LastName", Person.LastName);
                             cmd.Parameters.AddWithValue("@Phone", Person.Phone);
                             cmd.Parameters.AddWithValue("@Email", Person.Email);
-                            cmd.Parameters.AddWithValue("@Password", SecurityHelper.GeneratedPasswordHash(Person.Password));
                             cmd.Parameters.AddWithValue("@userId", id);
 
 
@@ -59,7 +59,7 @@ namespace DiscGolfWeb.Pages.Account
             }
         }
 
-        private void DeleteItem(int id)
+        private void DeleteUser(int id)
         {
             using (SqlConnection conn = new SqlConnection(SecurityHelper.GetDBConnectionString()))
             {
