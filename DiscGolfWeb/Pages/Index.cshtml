@@ -124,7 +124,7 @@
             <div class="col-4">
                 <img src="@Item.ItemImage" alt="Product Image" width="200" height="200" />
             </div>
-            <div class="col-4">
+            <div class="col-6">
                 <div class="col-2" >
                     <label style="font-size: 24px;" class="form-label" asp-for="@Item.ItemName">@Item.ItemName</label>
                 </div>
@@ -138,7 +138,7 @@
                     <label class="form-label" asp-for="@Item.ItemPrice">Price: @Item.ItemPrice.ToString("c")</label>
                 </div>
             </div>
-            <div class="col-4">
+            <div class="col-2">
                     <input type="hidden" name="userId" value="@Model.Person.PersonId" />
                 <button id="btnBuy" type="submit" asp-page-handler="AddToCart" asp-route-itemId="@Item.ItemID" class="btn btn-primary" onclick="showAddedToCartMessage()">Add to Cart <i class="bi bi-bag"></i></button>
             </div>
