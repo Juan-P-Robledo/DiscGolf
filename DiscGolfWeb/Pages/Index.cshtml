@@ -79,7 +79,7 @@
         box-sizing: border-box;
     }
 
-    #btnView, #btnBuy {
+    #btnLogin, #btnAdd {
         background-color: rgba(97,130,109,255);
         color: white;
         padding: 5px 5px;
@@ -124,7 +124,7 @@
             <div class="col-4">
                 <img src="@Item.ItemImage" alt="Product Image" width="200" height="200" />
             </div>
-            <div class="col-6">
+            <div class="col-5">
                 <div class="col-2" >
                     <label style="font-size: 24px;" class="form-label" asp-for="@Item.ItemName">@Item.ItemName</label>
                 </div>
@@ -138,10 +138,20 @@
                     <label class="form-label" asp-for="@Item.ItemPrice">Price: @Item.ItemPrice.ToString("c")</label>
                 </div>
             </div>
-            <div class="col-2">
+            @if (HttpContext.User.Identity.IsAuthenticated)
+            {
+                <div class="col-2">
                     <input type="hidden" name="userId" value="@Model.Person.PersonId" />
-                <button id="btnBuy" type="submit" asp-page-handler="AddToCart" asp-route-itemId="@Item.ItemID" class="btn btn-primary" onclick="showAddedToCartMessage()">Add to Cart<i class="bi bi-bag"></i></button>
-            </div>
+                    <button id="btnAdd" type="submit" asp-page-handler="AddToCollection" asp-route-itemId="@Item.ItemID" class="btn btn-primary" onclick="showAddedToCollectionMessage()">Add to Collection <i class="bi bi-bag"></i></button>
+                </div>
+            }
+            else
+            {
+                <div class="col-2">
+                    <a asp-page="/Account/Login" id="btnLogin" class="btn btn-primary">Login to Add</a>
+                </div>
+            }
+
             <div class="col-5">
                 <label class="form-label" asp-for="@Item.ItemDescription">Description:</label>
                 <label class="form-label">@Item.ItemDescription</label>
@@ -154,7 +164,7 @@
     function submitForm() {
         document.getElementById('myForm').submit();
     }
-    function showAddedToCartMessage() {
-        alert("Added to Cart");
+    function showAddedToCollectionMessage() {
+        alert("Added to Collection");
     }
 </script>
