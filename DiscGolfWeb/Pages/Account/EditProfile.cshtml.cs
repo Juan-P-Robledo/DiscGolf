@@ -25,15 +25,7 @@ namespace DiscGolfWeb.Pages.Account
         public IActionResult OnPost(int id)
         {
 
-            // Check if the request is for deletion
-            if (Request.Form["Delete"] == "true")
-            {
-                // Call the method to delete the item
-                DeleteUser(id);
-                return RedirectToPage("ViewUsers");
-            }
-            else
-            {
+            
                 ModelState.Remove("Person.Password");
                 if (ModelState.IsValid)
                 {
@@ -63,21 +55,10 @@ namespace DiscGolfWeb.Pages.Account
                     return Page();
 
                 }
-            }
+            
         }
 
-        private void DeleteUser(int id)
-        {
-            using (SqlConnection conn = new SqlConnection(SecurityHelper.GetDBConnectionString()))
-            {
-                string cmdText = "DELETE FROM Users WHERE UserID=@userId";
-                SqlCommand cmd = new SqlCommand(cmdText, conn);
-                cmd.Parameters.AddWithValue("@userId", id);
-
-                conn.Open();
-                cmd.ExecuteNonQuery();
-            }
-        }
+       
 
         private void PopulateUser(int id)
         {

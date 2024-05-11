@@ -168,29 +168,14 @@
         <div class="col-2">
             <input type="submit" value="Update" id="btnUpdate" class="btn btn-primary" />
         </div>
-        <div class="col-2">
-            <input type="submit" value="Delete" id="btnDelete" class="btn btn-danger" />
-        </div>
+        
         <div class="col-2">
             <a asp-page="Profile" asp-route-id="@Model.Person.PersonId" id="returnBtn" class="btn btn-primary">Back to Profile</a>
         </div>
 
-        <input type="hidden" name="Delete" id="Delete" value="false" />
+        
     </div>
 
 
 </form>
 
-
-<script>
-    document.getElementById('btnDelete').addEventListener('click', function () {
-        // Show confirmation dialog
-        var confirmDelete = confirm("Are you sure you want to delete? (WARNING: Once deleted this User can't be recovered)");
-
-        // If user confirms, perform deletion
-        if (confirmDelete) {
-            document.getElementById("Delete").value = "true";
-            document.getElementById("formID").submit();
-        }
-    });
-</script>
