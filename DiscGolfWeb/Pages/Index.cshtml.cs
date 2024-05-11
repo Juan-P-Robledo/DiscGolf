@@ -45,6 +45,11 @@ namespace DiscGolfWeb.Pages
 
         public void OnPost() 
         {
+            if (User.Identity.IsAuthenticated)
+            {
+                PopulateUser();
+            }
+
             PopulateItems(SelectedID, SelectedFilterID);
             PopulateSpecificationDDL();
             PopulateFilterDDL();
@@ -138,12 +143,12 @@ namespace DiscGolfWeb.Pages
             
         }
 
-        public IActionResult OnPostAddToCart(int itemId, int userId)
+        public IActionResult OnPostAddToCollection(int itemId, int userId)
         {
            
                 using (SqlConnection conn = new SqlConnection(SecurityHelper.GetDBConnectionString()))
                 {
-                    string cmdText = "INSERT INTO Cart(ProductID, UserID) VALUES (@itemID, @userID)";
+                    string cmdText = "INSERT INTO Collection(ProductID, UserID) VALUES (@itemID, @userID)";
                     SqlCommand cmd = new SqlCommand(cmdText, conn);
                     cmd.Parameters.AddWithValue("@itemID", itemId);
                     cmd.Parameters.AddWithValue("@userID", userId);
