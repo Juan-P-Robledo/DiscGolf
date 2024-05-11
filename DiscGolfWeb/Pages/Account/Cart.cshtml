@@ -45,7 +45,7 @@
             </div>
             <div class="col-4">
                 <input type="hidden" name="userId" value="@Model.Person.PersonId" />
-                <button id="btnBuy" type="submit" asp-page-handler="AddToCart" asp-route-itemId="@Item.ItemID" class="btn btn-primary" onclick="showAddedToCartMessage()">Remove<i class="bi bi-bag"></i></button>
+                <button id="btnBuy" type="submit" asp-page-handler="AddToCart" asp-route-itemId="@Item.ItemID" class="btn btn-primary" onclick="showAddedToCartMessage()"> Remove </button>
             </div>
             <div class="col-5">
                 <label class="form-label" asp-for="@Item.ItemDescription">Description:</label>
