@@ -63,13 +63,10 @@
   </ItemGroup>
   <ItemGroup>
     <Build Include="dbo\Tables\Users.sql" />
-    <Build Include="dbo\Tables\Videos.sql" />
     <Build Include="dbo\Tables\Products.sql" />
     <Build Include="dbo\Tables\Collection.sql" />
-    <Build Include="dbo\Tables\Orders.sql" />
     <Build Include="dbo\Tables\Category.sql" />
     <Build Include="dbo\Tables\Filter.sql" />
-    <Build Include="dbo\Tables\Cart.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="PopulateDB.sql" />
